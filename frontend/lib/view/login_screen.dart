@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Login Screen'),
+        leading: Container(),
       ),
       body: Form(
         key: loginFormKey,
@@ -81,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() {
     // Thành công
     if (loginFormKey.currentState!.validate()) {
-      print('Success');
+      Navigator.pushReplacementNamed(context, '/');
     }
   }
 }

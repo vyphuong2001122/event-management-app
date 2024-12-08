@@ -1,4 +1,5 @@
 import 'package:event_management_app/colors.dart';
+import 'package:event_management_app/view/home_screen.dart';
 import 'package:event_management_app/view/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const LoginScreen(),
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => const LoginScreen(),
+        '/': (context) => const HomeScreen(),
+      },
     );
   }
 }
