@@ -37,16 +37,26 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          if (events.isNotEmpty)
-            for (String event in events) Text(event)
-          else
-            Center(
-              child: Text('The list is empty'),
-            )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            if (events.isNotEmpty)
+              for (String event in events) Text(event)
+            else
+              Container(
+                alignment: Alignment.center,
+                height: 500,
+                child: Text('The list is empty'),
+              )
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/add-new-event');
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
