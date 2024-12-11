@@ -26,7 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               title: const Text('Profile'),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, '/profile');
+              },
             ),
             ListTile(
               title: const Text('Logout'),

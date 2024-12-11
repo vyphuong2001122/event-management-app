@@ -2,6 +2,7 @@ import 'package:event_management_app/colors.dart';
 import 'package:event_management_app/view/add_new_event_screen.dart';
 import 'package:event_management_app/view/home_screen.dart';
 import 'package:event_management_app/view/login_screen.dart';
+import 'package:event_management_app/view/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/': (context) => const HomeScreen(),
         '/add-new-event': (context) => const AddNewEventScreen(),
+        '/profile': (context) => const ProfileScreen(),
       },
     );
   }
