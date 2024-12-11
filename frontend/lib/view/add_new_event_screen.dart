@@ -1,3 +1,4 @@
+import 'package:event_management_app/colors.dart';
 import 'package:flutter/material.dart';
 
 class AddNewEventScreen extends StatefulWidget {
@@ -36,10 +37,24 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
                   border: OutlineInputBorder(),
                   hintText: 'Enter event description',
                 ),
-                controller: eventNameController,
+                controller: eventDescriptionController,
                 keyboardType: TextInputType.text,
                 maxLines: 4,
               ),
+              SizedBox(height: 10),
+              MaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                minWidth: 250,
+                height: 50,
+                textColor: Colors.white,
+                color: primaryColor,
+                child: Text(
+                  'ADD',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+              )
             ],
           ),
         ),
