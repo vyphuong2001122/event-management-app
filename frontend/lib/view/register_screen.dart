@@ -1,28 +1,30 @@
 import 'package:event_management_app/colors.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final loginFormKey = GlobalKey<FormState>();
+class _RegisterScreenState extends State<RegisterScreen> {
+  final registerFormKey = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login Screen'),
+        title: Text('Register Screen'),
         leading: Container(),
       ),
       body: Form(
-        key: loginFormKey,
+        key: registerFormKey,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -59,25 +61,35 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               SizedBox(height: 10),
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter your password again',
+                ),
+                controller: confirmPasswordController,
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Password required';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 10),
               MaterialButton(
                 onPressed: () {
-                  login();
+                  register();
                 },
                 minWidth: 250,
                 height: 50,
                 textColor: Colors.white,
                 color: primaryColor,
                 child: Text(
-                  'LOGIN',
+                  'REGISTER',
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
               ),
-              SizedBox(height: 10),
-              InkWell(
-                child: Text('Register a new account',
-                    style: TextStyle(color: primaryColor)),
-                onTap: () {},
-              )
             ],
           ),
         ),
@@ -85,9 +97,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void login() {
+  void register() {
     // Thành công
-    if (loginFormKey.currentState!.validate()) {
+    if (registerFormKey.currentState!.validate()) {
       Navigator.pushReplacementNamed(context, '/');
     }
   }
