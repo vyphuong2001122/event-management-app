@@ -11,7 +11,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          MaterialButton(
+            child: Icon(Icons.edit),
+            onPressed: () {
+              Navigator.pushNamed(context, '/edit-profile');
+            },
+          ),
+        ],
+      ),
       body: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(20.0),
