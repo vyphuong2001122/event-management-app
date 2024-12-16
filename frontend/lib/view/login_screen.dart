@@ -13,14 +13,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool showPassword = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login Screen'),
-        leading: Container(),
-      ),
+      backgroundColor: primaryColorLightest,
       body: Form(
         key: loginFormKey,
         child: Padding(
@@ -28,48 +26,83 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter your email',
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Image.asset('assets/logo.png'),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Email required';
-                  }
-                  return null;
-                },
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                    hintText: 'Enter your email',
+                    prefixIcon: Icon(Icons.email, color: primaryColor),
+                  ),
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email required';
+                    }
+                    return null;
+                  },
+                ),
               ),
               SizedBox(height: 10),
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter your password',
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                controller: passwordController,
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Password required';
-                  }
-                  return null;
-                },
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(borderSide: BorderSide.none),
+                      hintText: 'Enter your password',
+                      prefixIcon: Icon(Icons.key, color: primaryColor),
+                      suffixIcon: InkWell(
+                        child: Icon(
+                          showPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: primaryColor,
+                          size: 18,
+                        ),
+                        onTap: () {
+                          setState(() {
+                            showPassword = !showPassword;
+                          });
+                        },
+                      )),
+                  controller: passwordController,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: showPassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password required';
+                    }
+                    return null;
+                  },
+                ),
               ),
-              SizedBox(height: 10),
-              MaterialButton(
-                onPressed: () {
-                  login();
-                },
-                minWidth: 250,
-                height: 50,
-                textColor: Colors.white,
-                color: primaryColor,
-                child: Text(
-                  'LOGIN',
-                  style: TextStyle(fontWeight: FontWeight.w600),
+              SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: MaterialButton(
+                  onPressed: () {
+                    login();
+                  },
+                  height: 50,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  textColor: Colors.white,
+                  color: primaryColor,
+                  child: Text(
+                    'LOGIN',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
               SizedBox(height: 10),

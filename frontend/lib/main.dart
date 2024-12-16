@@ -19,6 +19,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Event Management Application',
       theme: ThemeData(
+        scaffoldBackgroundColor: backgroundColor,
+        appBarTheme: AppBarTheme(
+          color: backgroundColor,
+        ),
         colorScheme: ColorScheme.light(
           background: backgroundColor,
           primary: primaryColor,
