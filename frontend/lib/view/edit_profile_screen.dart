@@ -1,3 +1,4 @@
+import 'package:event_management_app/colors.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -34,20 +35,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 SizedBox(width: 20),
                 Expanded(
                   flex: 6,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter your name',
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    controller: nameController,
-                    keyboardType: TextInputType.name,
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Name required';
-                      }
-                      return null;
-                    },
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(borderSide: BorderSide.none),
+                        hintText: 'Enter your name',
+                      ),
+                      controller: nameController,
+                      keyboardType: TextInputType.name,
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Name required';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -61,20 +68,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 SizedBox(width: 20),
                 Expanded(
                   flex: 6,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter your address',
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    controller: nameController,
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Address required';
-                      }
-                      return null;
-                    },
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(borderSide: BorderSide.none),
+                        hintText: 'Enter your address',
+                      ),
+                      controller: nameController,
+                      keyboardType: TextInputType.text,
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Address required';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -88,24 +101,49 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 SizedBox(width: 20),
                 Expanded(
                   flex: 6,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter your phone number',
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    controller: nameController,
-                    keyboardType: TextInputType.phone,
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Phone number required';
-                      }
-                      return null;
-                    },
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(borderSide: BorderSide.none),
+                        hintText: 'Enter your phone number',
+                      ),
+                      controller: nameController,
+                      keyboardType: TextInputType.phone,
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Phone number required';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                 ),
               ],
             ),
+            SizedBox(height: 40),
+            SizedBox(
+              width: double.infinity,
+              child: MaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                minWidth: 250,
+                height: 50,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                textColor: Colors.white,
+                color: primaryColor,
+                child: Text(
+                  'SAVE',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ),
+            )
           ],
         ),
       ),

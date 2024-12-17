@@ -13,9 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Event Management Application'),
-      ),
+      appBar: AppBar(),
       drawer: Drawer(
         child: ListView(
           // Important: Remove any padding from the ListView.
