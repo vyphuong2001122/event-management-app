@@ -47,6 +47,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Email required';
                     }
+                    if (!RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value)) {
+                      return 'Email is not valid';
+                    }
                     return null;
                   },
                 ),
@@ -78,10 +83,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       )),
                   controller: passwordController,
                   keyboardType: TextInputType.visiblePassword,
-                  obscureText: showPassword,
+                  obscureText: !showPassword,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Password required';
+                    }
+                    if (value.length < 6) {
+                      return 'Password is not strong enough';
                     }
                     return null;
                   },
