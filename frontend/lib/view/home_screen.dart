@@ -1,3 +1,6 @@
+import 'package:event_management_app/models/event.dart';
+import 'package:event_management_app/models/user.dart';
+import 'package:event_management_app/view/widgets/event_item.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -8,7 +11,36 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> events = [];
+  List<Event> events = [
+    Event(
+      title: 'Họp phụ huynh',
+      description: 'Đây là buổi họp phụ huynh hằng năm',
+      eventType: 'Annual Meeting',
+      location: 'Tôn Đức Thắng University',
+      createdBy: User(
+        name: 'GVCN',
+        email: 'gvcn@tdtu.edu.vn',
+        phoneNumber: '0123456789',
+        profilePicture: '',
+      ),
+      from: DateTime(2025, 1, 1, 9),
+      to: DateTime(2025, 1, 1, 12),
+    ),
+    Event(
+      title: 'Họp phụ huynh',
+      description: 'Đây là buổi họp phụ huynh hằng năm',
+      eventType: 'Annual Meeting',
+      location: 'Tôn Đức Thắng University',
+      createdBy: User(
+        name: 'GVCN',
+        email: 'gvcn@tdtu.edu.vn',
+        phoneNumber: '0123456789',
+        profilePicture: '',
+      ),
+      from: DateTime(2025, 1, 1, 9),
+      to: DateTime(2025, 1, 1, 12),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             if (events.isNotEmpty)
-              for (String event in events) Text(event)
+              for (Event event in events) EventItem(event: event)
             else
               Container(
                 alignment: Alignment.center,
