@@ -45,7 +45,7 @@ class _EventItemState extends State<EventItem> {
                     color: primaryColor,
                   ),
                   SizedBox(width: 10),
-                  Text('${widget.event.from} - ${widget.event.to}'),
+                  Text('${widget.event.date}'),
                 ],
               ),
             ],
