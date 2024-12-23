@@ -1,5 +1,6 @@
 import 'package:event_management_app/colors.dart';
 import 'package:event_management_app/controllers/event_controller.dart';
+import 'package:event_management_app/controllers/login_controller.dart';
 import 'package:event_management_app/view/add_new_event_screen.dart';
 import 'package:event_management_app/view/edit_profile_screen.dart';
 import 'package:event_management_app/view/home_screen.dart';
@@ -16,6 +17,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => EventController()),
+        ChangeNotifierProvider(create: (_) => LoginController()),
       ],
       child: const MyApp(),
     ),

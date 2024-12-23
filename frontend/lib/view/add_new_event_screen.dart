@@ -147,6 +147,10 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
                         onPressed: () {
                           bool valid = eventFormKey.currentState!.validate();
                           if (valid) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Add event success"),
+                            ));
                             controller.createEvent();
                             Navigator.pop(context);
                           }
