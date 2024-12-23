@@ -17,11 +17,6 @@ class EventController with ChangeNotifier {
   }
 
   void createEvent() {
-    print('Event name: ${eventNameController.text}');
-    print('Event description: ${eventDescriptionController.text}');
-    print('Event date: $eventDate');
-    print('Event category: ${eventCategoryController.text}');
-
     // Thêm event mới vào list
     events.add(Event(
       title: eventNameController.text,
@@ -42,5 +37,6 @@ class EventController with ChangeNotifier {
     eventDescriptionController.clear();
     eventCategoryController.clear();
     eventLocationController.clear();
+    notifyListeners();
   }
 }
