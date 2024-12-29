@@ -7,6 +7,7 @@ import 'package:event_management_app/view/home_screen.dart';
 import 'package:event_management_app/view/login_screen.dart';
 import 'package:event_management_app/view/profile_screen.dart';
 import 'package:event_management_app/view/register_screen.dart';
+import 'package:event_management_app/view/scan_qr_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => const ProfileScreen(),
         '/edit-profile': (context) => const EditProfileScreen(),
         '/register': (context) => const RegisterScreen(),
+        '/scan-qr': (context) => const ScanQrScreen(),
       },
     );
   }

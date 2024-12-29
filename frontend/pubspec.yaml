@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   provider: ^6.1.2
+  ai_barcode_scanner: ^6.0.1
   flutter:
     sdk: flutter
 

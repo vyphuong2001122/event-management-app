@@ -1,3 +1,4 @@
+import 'package:ai_barcode_scanner/ai_barcode_scanner.dart';
 import 'package:event_management_app/controllers/event_controller.dart';
 import 'package:event_management_app/models/event.dart';
 import 'package:event_management_app/view/widgets/event_item.dart';
@@ -15,7 +16,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.qr_code_scanner),
+            onPressed: () {
+              Navigator.pushNamed(context, '/scan-qr');
+            },
+          )
+        ],
+      ),
       drawer: Drawer(
         child: ListView(
           // Important: Remove any padding from the ListView.
