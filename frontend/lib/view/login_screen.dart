@@ -94,10 +94,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: MaterialButton(
-                    onPressed: () {
-                      controller.login(context);
-                    },
+                    onPressed: controller.loading
+                        ? null
+                        : () {
+                            controller.login(context);
+                          },
                     height: 50,
+                    disabledColor: primaryColorLight,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     textColor: Colors.white,
