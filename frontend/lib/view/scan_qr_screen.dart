@@ -12,7 +12,6 @@ class ScanQrScreen extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('${barcodeCapture.barcodes.first.rawValue}'),
           ));
-          Navigator.pop(context);
         },
         controller: MobileScannerController(
           detectionSpeed: DetectionSpeed.noDuplicates,

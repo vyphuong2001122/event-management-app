@@ -3,6 +3,7 @@ import 'package:event_management_app/controllers/event_controller.dart';
 import 'package:event_management_app/controllers/login_controller.dart';
 import 'package:event_management_app/view/add_new_event_screen.dart';
 import 'package:event_management_app/view/edit_profile_screen.dart';
+import 'package:event_management_app/view/event_list_screen.dart';
 import 'package:event_management_app/view/home_screen.dart';
 import 'package:event_management_app/view/login_screen.dart';
 import 'package:event_management_app/view/profile_screen.dart';
@@ -10,8 +11,12 @@ import 'package:event_management_app/view/register_screen.dart';
 import 'package:event_management_app/view/scan_qr_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+late SharedPreferences preferences;
+
+void main() async {
+  preferences = await SharedPreferences.getInstance();
   runApp(
     /// Providers are above [MyApp] instead of inside it, so that tests
     /// can use [MyApp] while mocking the providers
@@ -34,10 +39,11 @@ class MyApp extends StatelessWidget {
       title: 'Event Management Application',
       theme: ThemeData(
         scaffoldBackgroundColor: backgroundColor,
-        appBarTheme: AppBarTheme(
+        fontFamily: 'Poppins',
+        appBarTheme: const AppBarTheme(
           color: backgroundColor,
         ),
-        colorScheme: ColorScheme.light(
+        colorScheme: const ColorScheme.light(
           background: backgroundColor,
           primary: primaryColor,
           secondary: secondaryColor,
@@ -54,6 +60,7 @@ class MyApp extends StatelessWidget {
         '/edit-profile': (context) => const EditProfileScreen(),
         '/register': (context) => const RegisterScreen(),
         '/scan-qr': (context) => const ScanQrScreen(),
+        '/event-list': (context) => const EventListScreen(),
       },
     );
   }

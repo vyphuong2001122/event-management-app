@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:event_management_app/main.dart';
 
 class API {
   final Dio dio = Dio(BaseOptions(
     baseUrl: 'https://be-1z7j.onrender.com/',
   ));
-  final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
 
   // Đăng nhập
   // Nếu đăng nhập thành công, trả về true
@@ -19,7 +18,7 @@ class API {
       bool success = response.data['success'];
       // Nếu thành công, lưu lại token đăng nhập ở local
       if (success) {
-        await asyncPrefs.setString('TOKEN', response.data['token']);
+        await preferences.setString('TOKEN', response.data['token']);
         return true;
       } else {
         return false;
