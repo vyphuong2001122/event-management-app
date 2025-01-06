@@ -30,7 +30,10 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(0.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
@@ -52,7 +55,10 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
                     SizedBox(height: 10),
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(0.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
@@ -77,7 +83,10 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground
+                              .withOpacity(0.1),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         padding: EdgeInsets.all(10),
@@ -101,7 +110,10 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
                     SizedBox(height: 10),
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(0.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
@@ -122,7 +134,10 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
                     SizedBox(height: 10),
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(0.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
@@ -159,7 +174,10 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
                         height: 50,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        textColor: Colors.white,
+                        textColor: Theme.of(context)
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(0.1),
                         color: primaryColor,
                         child: Text(
                           'ADD',

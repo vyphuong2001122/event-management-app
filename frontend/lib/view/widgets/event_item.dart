@@ -17,7 +17,7 @@ class _EventItemState extends State<EventItem> {
     return Container(
       width: 300,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -45,9 +45,10 @@ class _EventItemState extends State<EventItem> {
               widget.event.title,
               maxLines: 1,
             ),
-            titleTextStyle: const TextStyle(
+            titleTextStyle: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 18,
+              color: Theme.of(context).colorScheme.onBackground,
             ),
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 8.0),
@@ -94,7 +95,7 @@ class _EventItemState extends State<EventItem> {
                 ],
               ),
             ),
-            tileColor: Colors.white,
+            tileColor: Theme.of(context).colorScheme.background,
           ),
         ],
       ),

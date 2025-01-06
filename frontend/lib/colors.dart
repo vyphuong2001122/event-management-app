@@ -6,4 +6,9 @@ const Color primaryColorLightest = Color(0xFFD8EAFE);
 const Color secondaryColor = Color(0xFFFF6F61);
 const Color secondaryColorLight = Color(0xFFFFA397);
 const Color secondaryColorLightest = Color(0xFFFFDED9);
-const Color backgroundColor = primaryColorLightest;
+const Color backgroundColor = Colors.white;
+
+// Dark mode
+const Color primaryColorDark = Color(0xFF1A73E8);
+const Color secondaryColorDark = Color(0xFFD1495B);
+const Color backgroundColorDark = Color(0xFF121212);

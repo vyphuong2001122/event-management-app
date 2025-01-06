@@ -15,7 +15,7 @@ class HomeMenuWidget extends StatelessWidget {
       dimension: 160,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
