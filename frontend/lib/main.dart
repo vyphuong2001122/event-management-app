@@ -1,5 +1,6 @@
 import 'package:event_management_app/colors.dart';
 import 'package:event_management_app/controllers/event_controller.dart';
+import 'package:event_management_app/controllers/home_controller.dart';
 import 'package:event_management_app/controllers/login_controller.dart';
 import 'package:event_management_app/controllers/theme_controller.dart';
 import 'package:event_management_app/view/add_new_event_screen.dart';
@@ -10,6 +11,7 @@ import 'package:event_management_app/view/login_screen.dart';
 import 'package:event_management_app/view/profile_screen.dart';
 import 'package:event_management_app/view/register_screen.dart';
 import 'package:event_management_app/view/scan_qr_screen.dart';
+import 'package:event_management_app/view/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,6 +28,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => EventController()),
         ChangeNotifierProvider(create: (_) => LoginController()),
         ChangeNotifierProvider(create: (_) => ThemeController()),
+        ChangeNotifierProvider(create: (_) => HomeController()),
       ],
       child: const MyApp(),
     ),
@@ -70,6 +73,9 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
           initialRoute: '/login',
+          onGenerateInitialRoutes: (route) {
+            return [MaterialPageRoute(builder: (_) => const LoginScreen())];
+          },
           routes: {
             '/login': (context) => const LoginScreen(),
             '/': (context) => const HomeScreen(),
@@ -79,6 +85,7 @@ class MyApp extends StatelessWidget {
             '/register': (context) => const RegisterScreen(),
             '/scan-qr': (context) => const ScanQrScreen(),
             '/event-list': (context) => const EventListScreen(),
+            '/settings': (context) => const SettingsScreen(),
           },
         );
       },

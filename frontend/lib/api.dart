@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:event_management_app/main.dart';
+import 'package:event_management_app/models/user.dart';
 
 class API {
   final Dio dio = Dio(BaseOptions(
@@ -26,6 +27,30 @@ class API {
     } catch (e) {
       // Bị lỗi
       return false;
+    }
+  }
+
+  void addToken() {
+    String? token = preferences.getString('TOKEN');
+    if (token != null) {
+      dio.options.headers['Authorization'] = 'Bearer $token';
+    }
+  }
+
+  Future<User?> getUserProfile() async {
+    try {
+      addToken();
+      Response response = await dio.get('users/profile');
+      bool success = response.data['success'];
+      if (success) {
+        return User.fromJson(response.data['data']);
+      } else {
+        return null;
+      }
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return null;
     }
   }
 }

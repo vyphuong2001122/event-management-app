@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class HomeMenuWidget extends StatelessWidget {
   final String title;
   final String icon;
+  final VoidCallback? onTap;
   const HomeMenuWidget({
     super.key,
     required this.title,
     required this.icon,
+    this.onTap,
   });
 
   @override
@@ -27,22 +29,25 @@ class HomeMenuWidget extends StatelessWidget {
           ],
         ),
         margin: const EdgeInsets.only(right: 16, bottom: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 40,
-              child: Image.asset(icon),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+        child: InkWell(
+          onTap: onTap,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 40,
+                child: Image.asset(icon),
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

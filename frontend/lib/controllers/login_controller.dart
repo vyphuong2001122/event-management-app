@@ -1,4 +1,5 @@
 import 'package:event_management_app/api.dart';
+import 'package:event_management_app/main.dart';
 import 'package:flutter/material.dart';
 
 class LoginController with ChangeNotifier {
@@ -35,5 +36,9 @@ class LoginController with ChangeNotifier {
     }
     loading = false;
     notifyListeners();
+  }
+
+  void logout(BuildContext context) {
+    preferences.clear();
   }
 }
