@@ -1,4 +1,6 @@
+import 'package:event_management_app/colors.dart';
 import 'package:event_management_app/controllers/home_controller.dart';
+import 'package:event_management_app/controllers/login_controller.dart';
 import 'package:event_management_app/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +25,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
             },
           ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
+        child: MaterialButton(
+          onPressed: () {
+            Provider.of<LoginController>(context, listen: false)
+                .logout(context);
+            Navigator.popUntil(context, (route) => route.isFirst);
+            Navigator.pushReplacementNamed(context, '/login');
+          },
+          height: 50,
+          disabledColor: primaryColorLight,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          textColor: Colors.white,
+          color: primaryColor,
+          child: const Text(
+            'LOGOUT',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+        ),
       ),
       body: Consumer<HomeController>(builder: (context, homeController, _) {
         User? user = homeController.currentUser;

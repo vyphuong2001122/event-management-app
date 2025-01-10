@@ -30,6 +30,30 @@ class API {
     }
   }
 
+  // Đăng ký tài khoản
+  // Nếu đăng ký thành công, trả về true
+  // Nếu đăng ký thất bại, trả về false
+  Future<bool> register(String email, String password, String name) async {
+    try {
+      Response response = await dio.post('users/register', data: {
+        'name': name,
+        'email': email,
+        'password': password,
+      });
+      bool success = response.data['success'];
+      // Nếu thành công, lưu lại token đăng nhập ở local
+      if (success) {
+        await preferences.setString('TOKEN', response.data['token']);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      // Bị lỗi
+      return false;
+    }
+  }
+
   void addToken() {
     String? token = preferences.getString('TOKEN');
     if (token != null) {
