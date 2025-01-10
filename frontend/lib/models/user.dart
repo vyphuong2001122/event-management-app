@@ -1,9 +1,9 @@
 class User {
   final int id;
-  final String name;
-  final String email;
-  final String role;
-  final String? profilePicture;
+  String name;
+  String email;
+  String role;
+  String? profilePicture;
 
   User({
     required this.id,

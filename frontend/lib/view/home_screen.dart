@@ -185,9 +185,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               title: 'All events',
                             ),
                             if (user?.role == 'admin')
-                              const HomeMenuWidget(
+                              HomeMenuWidget(
                                 icon: 'assets/images/icon_profile.png',
                                 title: 'Users',
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/user-list');
+                                },
                               ),
                             const HomeMenuWidget(
                               icon: 'assets/images/icon_microphone.png',

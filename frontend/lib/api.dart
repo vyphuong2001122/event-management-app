@@ -53,4 +53,26 @@ class API {
       return null;
     }
   }
+
+  Future<List<User>> getUserList() async {
+    try {
+      addToken();
+      Response response = await dio.get('users');
+      bool success = response.data['success'];
+      if (success) {
+        List<User> users = [];
+        for (Map<String, dynamic> userData in (response.data['data']
+            ['users'])) {
+          users.add(User.fromJson(userData));
+        }
+        return users;
+      } else {
+        return [];
+      }
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return [];
+    }
+  }
 }
