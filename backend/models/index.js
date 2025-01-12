@@ -7,6 +7,8 @@ const Schedule = require('./Schedule');
 const Feedback = require('./Feedback');
 const Speaker = require('./Speaker');
 const Guest = require('./Guest');
+const EventRegistration = require('./EventRegistration');
+
 
 // Define relationships
 User.hasMany(Ticket, { foreignKey: 'userId' });
@@ -30,15 +32,20 @@ Speaker.belongsTo(Event, { foreignKey: 'eventId' });
 Event.hasMany(Guest, { foreignKey: 'eventId' });
 Guest.belongsTo(Event, { foreignKey: 'eventId' });
 
+Event.hasMany(EventRegistration, { foreignKey: 'eventId' });
+EventRegistration.belongsTo(Event, { foreignKey: 'eventId' });
+
+
 // Export models and sequelize instance
 module.exports = {
-  sequelize,
-  User,
-  Event,
-  Ticket,
-  Notification,
-  Schedule,
-  Feedback,
-  Speaker,
-  Guest,
+    sequelize,
+    User,
+    Event,
+    Ticket,
+    Notification,
+    Schedule,
+    Feedback,
+    Speaker,
+    Guest,
+    EventRegistration,
 };

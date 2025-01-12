@@ -1,4 +1,8 @@
 const Event = require('../models/Event');
+const User = require('../models/User');
+const EventRegistration = require('../models/EventRegistration');
+const { v4: uuidv4 } = require('uuid');
+const { v4 } = require('bcrypt');
 
 // Create a new event
 exports.createEvent = async (req, res) => {
@@ -98,5 +102,81 @@ exports.deleteEvent = async (req, res) => {
   } catch (err) {
     console.error('Error deleting event:', err);
     res.status(500).json({ success: false, message: 'Failed to delete event.' });
+  }
+};
+
+// Sign up for an event
+exports.signUpForEvent = async (req, res) => {
+  try {
+    const { userId, eventId } = req.body;
+
+    // Validate input
+    if (!userId || !eventId) {
+      return res.status(400).json({ success: false, message: 'User ID and Event ID are required.' });
+    }
+
+    // Check if event exists
+    const event = await Event.findByPk(eventId);
+    if (!event) {
+      return res.status(404).json({ success: false, message: 'Event not found.' });
+    }
+
+    // Check if user exists
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
+
+    // Check if already registered
+    const existingRegistration = await EventRegistration.findOne({ where: { userId, eventId } });
+    if (existingRegistration) {
+      return res.status(400).json({ success: false, message: 'User already registered for this event.' });
+    }
+
+    // Generate a unique QR key
+    const qrKey = uuidv4();
+
+    // Create registration
+    const registration = await EventRegistration.create({ userId, eventId, qrKey });
+
+    res.status(201).json({
+      success: true,
+      message: 'User successfully registered for the event.',
+      data: { qrKey, registration },
+    });
+  } catch (err) {
+    console.error('Error registering for event:', err);
+    res.status(500).json({ success: false, message: 'Failed to register for the event.' });
+  }
+};
+
+// Validate participant attendance
+exports.validateAttendance = async (req, res) => {
+  try {
+    const { qrKey } = req.body;
+
+    // Validate input
+    if (!qrKey) {
+      return res.status(400).json({ success: false, message: 'QR Key is required.' });
+    }
+
+    // Find the registration
+    const registration = await EventRegistration.findOne({ where: { qrKey } });
+    if (!registration) {
+      return res.status(404).json({ success: false, message: 'Invalid QR key or participant not found.' });
+    }
+
+    // Mark as attended
+    registration.attended = true;
+    await registration.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Attendance validated successfully.',
+      data: { userId: registration.userId, eventId: registration.eventId },
+    });
+  } catch (err) {
+    console.error('Error validating attendance:', err);
+    res.status(500).json({ success: false, message: 'Failed to validate attendance.' });
   }
 };
