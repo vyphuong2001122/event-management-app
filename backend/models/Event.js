@@ -18,6 +18,10 @@ Event.init({
         type: DataTypes.DATE,
         allowNull: false,
     },
+    category: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
 }, {
     sequelize,
     modelName: 'Event',

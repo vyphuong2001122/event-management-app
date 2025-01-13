@@ -11,7 +11,6 @@ exports.getUserTickets = async(req, res) => {
             attributes: ['id', 'eventId', 'qrKey', 'attended', 'createdAt'],
             include: [{
                 model: Event,
-                as: 'event',
                 attributes: ['name', 'description', 'location', 'date'], // Chọn các trường từ Event
             }, ],
         });

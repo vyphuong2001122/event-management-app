@@ -1,4 +1,4 @@
-const sequelize = require('../config/db');
+const sequelize = require('../config/db.config');
 const User = require('./User');
 const Event = require('./Event');
 const Ticket = require('./Ticket');
@@ -31,6 +31,9 @@ Speaker.belongsTo(Event, { foreignKey: 'eventId' });
 
 Event.hasMany(Guest, { foreignKey: 'eventId' });
 Guest.belongsTo(Event, { foreignKey: 'eventId' });
+
+User.hasMany(EventRegistration, { foreignKey: 'userId' });
+EventRegistration.belongsTo(User, { foreignKey: 'userId' });
 
 Event.hasMany(EventRegistration, { foreignKey: 'eventId' });
 EventRegistration.belongsTo(Event, { foreignKey: 'eventId' });
