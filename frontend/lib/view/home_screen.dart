@@ -69,11 +69,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Stack(
-        alignment: Alignment.bottomCenter,
         children: [
-          Opacity(
-            opacity: 0.5,
-            child: Image.asset('assets/images/home_background.png'),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Opacity(
+              opacity: 0.5,
+              child: Image.asset('assets/images/home_background.png'),
+            ),
           ),
           Consumer2<ThemeController, HomeController>(
             builder: (context, themeController, homeController, _) {
@@ -157,32 +159,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      SectionWidget(
-                        title: 'Hot events',
-                        content: SizedBox(
-                          height: 240,
-                          width: double.infinity,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 8),
-                            children: [
-                              for (Event event in events)
-                                EventItem(
-                                  event: event,
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
                       const SizedBox(height: 20),
                       SectionWidget(
                         title: 'Menus',
                         content: Wrap(
                           children: [
-                            const HomeMenuWidget(
+                            HomeMenuWidget(
                               icon: 'assets/images/icon_calendar.png',
                               title: 'All events',
+                              onTap: () {
+                                Navigator.pushNamed(context, '/event-list');
+                              },
                             ),
                             if (user?.role == 'admin')
                               HomeMenuWidget(
@@ -212,12 +199,6 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/add-new-event');
-        },
-        child: const Icon(Icons.add),
       ),
     );
   }

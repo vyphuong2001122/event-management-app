@@ -7,6 +7,7 @@ import 'package:event_management_app/controllers/theme_controller.dart';
 import 'package:event_management_app/controllers/user_controller.dart';
 import 'package:event_management_app/view/add_new_event_screen.dart';
 import 'package:event_management_app/view/edit_profile_screen.dart';
+import 'package:event_management_app/view/event_detail_screen.dart';
 import 'package:event_management_app/view/event_list_screen.dart';
 import 'package:event_management_app/view/home_screen.dart';
 import 'package:event_management_app/view/login_screen.dart';
@@ -90,6 +91,7 @@ class MyApp extends StatelessWidget {
             '/register': (context) => const RegisterScreen(),
             '/scan-qr': (context) => const ScanQrScreen(),
             '/event-list': (context) => const EventListScreen(),
+            '/event-detail': (context) => const EventDetailScreen(),
             '/settings': (context) => const SettingsScreen(),
             '/user-list': (context) => const UserListScreen(),
           },

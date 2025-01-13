@@ -1,8 +1,10 @@
+import 'package:event_management_app/api.dart';
 import 'package:event_management_app/models/event.dart';
 import 'package:flutter/material.dart';
 
 class EventController with ChangeNotifier {
   List<Event> events = [];
+  bool loading = false;
 
   TextEditingController eventNameController = TextEditingController();
   TextEditingController eventDescriptionController = TextEditingController();
@@ -38,5 +40,38 @@ class EventController with ChangeNotifier {
     eventCategoryController.clear();
     eventLocationController.clear();
     notifyListeners();
+  }
+
+  // Lấy list events từ API
+  Future<void> getEventList() async {
+    try {
+      loading = true;
+      notifyListeners();
+      events = await API().getEventList();
+      notifyListeners();
+      loading = false;
+      notifyListeners();
+    } catch (e, st) {
+      print('$e $st');
+      loading = false;
+      notifyListeners();
+    }
+  }
+
+  // Lấy 1 event chi tiết từ API
+  Future<Event?> getDetailEvent(int id) async {
+    try {
+      loading = true;
+      notifyListeners();
+      Event? event = await API().getEventDetail(id);
+      loading = false;
+      notifyListeners();
+      return event;
+    } catch (e, st) {
+      print('$e $st');
+      loading = false;
+      notifyListeners();
+      return null;
+    }
   }
 }

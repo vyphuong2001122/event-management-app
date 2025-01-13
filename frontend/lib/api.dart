@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:event_management_app/main.dart';
+import 'package:event_management_app/models/event.dart';
 import 'package:event_management_app/models/user.dart';
 
 class API {
@@ -97,6 +98,44 @@ class API {
       // Bị lỗi
       print('$e $st');
       return [];
+    }
+  }
+
+  Future<List<Event>> getEventList() async {
+    try {
+      addToken();
+      Response response = await dio.get('events');
+      bool success = response.data['success'];
+      if (success) {
+        List<Event> events = [];
+        for (Map<String, dynamic> eventData in (response.data['data'])) {
+          events.add(Event.fromJson(eventData));
+        }
+        return events;
+      } else {
+        return [];
+      }
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return [];
+    }
+  }
+
+  Future<Event?> getEventDetail(int id) async {
+    try {
+      addToken();
+      Response response = await dio.get('events/$id');
+      bool success = response.data['success'];
+      if (success) {
+        return Event.fromJson(response.data['data']);
+      } else {
+        return null;
+      }
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return null;
     }
   }
 }

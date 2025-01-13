@@ -1,4 +1,5 @@
 import 'package:event_management_app/controllers/event_controller.dart';
+import 'package:event_management_app/controllers/home_controller.dart';
 import 'package:event_management_app/models/event.dart';
 import 'package:event_management_app/view/widgets/event_item.dart';
 import 'package:flutter/material.dart';
@@ -13,26 +14,60 @@ class EventListScreen extends StatefulWidget {
 
 class _EventListScreenState extends State<EventListScreen> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<EventController>(context, listen: false).getEventList();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Consumer<EventController>(builder: (context, controller, child) {
-        return SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              if (controller.events.isNotEmpty)
-                for (Event event in controller.events) EventItem(event: event)
-              else
-                Container(
-                  alignment: Alignment.center,
-                  height: 500,
-                  child: const Text('The list is empty'),
-                )
-            ],
+    return Consumer2<EventController, HomeController>(
+      builder: (context, eventController, homeController, _) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('All events'),
           ),
+          body: Padding(
+            padding: const EdgeInsets.all(20),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  if (eventController.loading)
+                    const CircularProgressIndicator()
+                  else if (eventController.events.isNotEmpty)
+                    for (Event event in eventController.events)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: EventItem(
+                          event: event,
+                          width: MediaQuery.of(context).size.width,
+                        ),
+                      )
+                  else
+                    Container(
+                      alignment: Alignment.center,
+                      height: 500,
+                      child: const Text('The list is empty'),
+                    )
+                ],
+              ),
+            ),
+          ),
+          floatingActionButton: (homeController.currentUser?.role == 'admin' ||
+                  homeController.currentUser?.role == 'organizer')
+              ? FloatingActionButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/add-new-event');
+                  },
+                  child: const Icon(Icons.add),
+                )
+              : null,
         );
-      }),
+      },
     );
   }
 }
