@@ -23,9 +23,6 @@ class LoginController with ChangeNotifier {
       bool success =
           await API().login(emailController.text, passwordController.text);
       if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Login success"),
-        ));
         Navigator.pushReplacementNamed(context, '/');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

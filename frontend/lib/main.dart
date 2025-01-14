@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_management_app/colors.dart';
 import 'package:event_management_app/controllers/event_controller.dart';
 import 'package:event_management_app/controllers/home_controller.dart';
@@ -23,6 +24,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 late SharedPreferences preferences;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await EasyLocalization.ensureInitialized();
   preferences = await SharedPreferences.getInstance();
   runApp(
     /// Providers are above [MyApp] instead of inside it, so that tests
@@ -36,7 +40,14 @@ void main() async {
         ChangeNotifierProvider(create: (_) => HomeController()),
         ChangeNotifierProvider(create: (_) => UserController()),
       ],
-      child: const MyApp(),
+      child: EasyLocalization(
+          supportedLocales: const [
+            Locale('en', 'US'),
+            Locale('vi', 'VN'),
+          ],
+          path: 'translations',
+          fallbackLocale: const Locale('en', 'US'),
+          child: const MyApp()),
     ),
   );
 }
@@ -50,6 +61,9 @@ class MyApp extends StatelessWidget {
       builder: (context, themeController, _) {
         return MaterialApp(
           title: 'Event Management Application',
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
           theme: ThemeData(
             scaffoldBackgroundColor: backgroundColor,
             fontFamily: 'Poppins',

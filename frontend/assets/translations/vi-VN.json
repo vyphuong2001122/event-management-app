@@ -1,0 +1,28 @@
+{
+  "login_screen": {
+    "enter_your_email": "Nhập email",
+    "enter_your_password": "Nhập mật khẩu",
+    "email_required": "Bắt buộc nhập email",
+    "email_not_valid": "Email không hợp lệ",
+    "password_required": "Bắt buộc nhập mật khẩu",
+    "password_not_strong_enough": "Mật khẩu không đủ mạnh",
+    "login": "ĐĂNG NHẬP",
+    "dont_have_account": "Chưa có tài khoản? Đăng ký mới"
+  },
+  "home_screen": {
+    "welcome_back": "Mừng bạn trở lại, ",
+    "your_events": "Sự kiện của bạn",
+    "functions": "Tính năng",
+    "all_events": "Tất cả sự kiện",
+    "users": "Người dùng",
+    "speakers": "Diễn giả",
+    "settings": "Tuỳ chỉnh"
+  },
+  "settings_screen": {
+    "settings": "Tuỳ chỉnh",
+    "logout": "Đăng xuất",
+    "dark_mode": "Chủ đề tối",
+    "language": "Ngôn ngữ",
+    "select_language": "Chọn ngôn ngữ"
+  }
+}

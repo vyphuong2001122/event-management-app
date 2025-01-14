@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_management_app/controllers/home_controller.dart';
 import 'package:event_management_app/controllers/login_controller.dart';
 import 'package:event_management_app/controllers/theme_controller.dart';
@@ -44,29 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              child: Text('Welcome user'),
-            ),
-            ListTile(
-              title: const Text('Profile'),
-              onTap: () {
-                Navigator.pushNamed(context, '/profile');
-              },
-            ),
-            ListTile(
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/login');
-              },
-            ),
-          ],
-        ),
-      ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Stack(
         children: [
@@ -97,25 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.pushNamed(context, '/profile');
                             },
                           ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: themeController.currentTheme ==
-                                        ThemeMode.dark
-                                    ? const Icon(Icons.dark_mode)
-                                    : const Icon(Icons.light_mode),
-                                onPressed: () {
-                                  themeController.toggleTheme();
-                                },
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.qr_code_scanner),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/scan-qr');
-                                },
-                              ),
-                            ],
+                          IconButton(
+                            icon: const Icon(Icons.qr_code_scanner),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/scan-qr');
+                            },
                           ),
                         ],
                       ),
@@ -123,8 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text.rich(
                         TextSpan(
                           children: [
-                            const TextSpan(
-                              text: 'Welcome back, ',
+                            TextSpan(
+                              text: 'home_screen.welcome_back'.tr(),
                               style: TextStyle(
                                 fontSize: 20,
                               ),
@@ -142,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       const SizedBox(height: 40),
                       SectionWidget(
-                        title: 'Your events',
+                        title: 'home_screen.your_events'.tr(),
                         content: SizedBox(
                           height: 240,
                           width: double.infinity,
@@ -161,12 +125,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       const SizedBox(height: 20),
                       SectionWidget(
-                        title: 'Menus',
+                        title: 'home_screen.functions'.tr(),
                         content: Wrap(
                           children: [
                             HomeMenuWidget(
                               icon: 'assets/images/icon_calendar.png',
-                              title: 'All events',
+                              title: 'home_screen.all_events'.tr(),
                               onTap: () {
                                 Navigator.pushNamed(context, '/event-list');
                               },
@@ -174,18 +138,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             if (user?.role == 'admin')
                               HomeMenuWidget(
                                 icon: 'assets/images/icon_profile.png',
-                                title: 'Users',
+                                title: 'home_screen.users'.tr(),
                                 onTap: () {
                                   Navigator.pushNamed(context, '/user-list');
                                 },
                               ),
-                            const HomeMenuWidget(
+                            HomeMenuWidget(
                               icon: 'assets/images/icon_microphone.png',
-                              title: 'Speakers',
+                              title: 'home_screen.speakers'.tr(),
                             ),
                             HomeMenuWidget(
                                 icon: 'assets/images/icon_settings.png',
-                                title: 'Settings',
+                                title: 'home_screen.settings'.tr(),
                                 onTap: () {
                                   Navigator.pushNamed(context, '/settings');
                                 }),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_management_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -24,5 +25,12 @@ class ThemeController with ChangeNotifier {
       preferences.setString('THEME', 'dark');
     }
     notifyListeners();
+  }
+
+  void setLocale({
+    required BuildContext context,
+    Locale locale = const Locale('en', 'US'),
+  }) {
+    context.setLocale(locale);
   }
 }

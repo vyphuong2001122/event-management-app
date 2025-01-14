@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_management_app/colors.dart';
 import 'package:event_management_app/controllers/login_controller.dart';
 import 'package:event_management_app/main.dart';
@@ -69,22 +70,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: TextFormField(
-                          decoration: const InputDecoration(
-                            border:
-                                OutlineInputBorder(borderSide: BorderSide.none),
-                            hintText: 'Enter your email',
-                            prefixIcon: Icon(Icons.email, color: primaryColor),
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide.none),
+                            hintText: 'login_screen.enter_your_email'.tr(),
+                            prefixIcon:
+                                const Icon(Icons.email, color: primaryColor),
                           ),
                           controller: controller.emailController,
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Email required';
+                              return 'login_screen.email_required'.tr();
                             }
                             if (!RegExp(
                                     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                 .hasMatch(value)) {
-                              return 'Email is not valid';
+                              return 'login_screen.email_not_valid'.tr();
                             }
                             return null;
                           },
@@ -101,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               border: const OutlineInputBorder(
                                 borderSide: BorderSide.none,
                               ),
-                              hintText: 'Enter your password',
+                              hintText: 'login_screen.enter_your_password'.tr(),
                               prefixIcon:
                                   const Icon(Icons.key, color: primaryColor),
                               suffixIcon: InkWell(
@@ -121,10 +123,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: !controller.showPassword,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Password required';
+                              return 'login_screen.password_required'.tr();
                             }
                             if (value.length < 6) {
-                              return 'Password is not strong enough';
+                              return 'login_screen.password_not_strong_enough'
+                                  .tr();
                             }
                             return null;
                           },
@@ -152,17 +155,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                   height: 24,
                                   child: CircularProgressIndicator(),
                                 )
-                              : const Text(
-                                  'LOGIN',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                              : Text(
+                                  'login_screen.login'.tr(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600),
                                 ),
                         ),
                       ),
                       const SizedBox(height: 10),
                       InkWell(
-                        child: const Text(
-                          'Don\'t have an account? Sign up for one',
-                          style: TextStyle(color: primaryColor),
+                        child: Text(
+                          'login_screen.dont_have_account'.tr(),
+                          style: const TextStyle(color: primaryColor),
                         ),
                         onTap: () {
                           Navigator.pushNamed(context, '/register');

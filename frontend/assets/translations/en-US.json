@@ -1,0 +1,28 @@
+{
+  "login_screen": {
+    "enter_your_email": "Enter your email",
+    "enter_your_password": "Enter your password",
+    "email_required": "Email required",
+    "email_not_valid": "Email is not valid",
+    "password_required": "Password required",
+    "password_not_strong_enough": "Password is not strong enough",
+    "login": "LOGIN",
+    "dont_have_account": "Don't have an account? Sign up for one"
+  },
+  "home_screen": {
+    "welcome_back": "Welcome back, ",
+    "your_events": "Your events",
+    "functions": "Functions",
+    "all_events": "All events",
+    "users": "Users",
+    "speakers": "Speakers",
+    "settings": "Settings"
+  },
+  "settings_screen": {
+    "settings": "Settings",
+    "logout": "Logout",
+    "dark_mode": "Dark mode",
+    "language": "Language",
+    "select_language": "Select language"
+  }
+}
