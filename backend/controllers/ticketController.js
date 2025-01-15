@@ -1,4 +1,4 @@
-const { EventRegistration, Event } = require('../models/index')
+const { Event, EventRegistration } = require('../models/index');
 
 exports.getUserTickets = async(req, res) => {
     try {

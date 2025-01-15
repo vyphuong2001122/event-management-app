@@ -32,7 +32,9 @@ app.use(express.json());
 const userRoutes = require('./routes/users');
 const eventRoutes = require('./routes/events');
 const ticketRoutes = require('./routes/tickets');
+const speakerRoutes = require('./routes/speakers');
 
 app.use('/users', userRoutes);
 app.use('/events', eventRoutes);
 app.use('/tickets', ticketRoutes);
+app.use('/speakers', speakerRoutes);
