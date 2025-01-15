@@ -1,4 +1,4 @@
-import 'package:event_management_app/colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_management_app/controllers/home_controller.dart';
 import 'package:event_management_app/controllers/login_controller.dart';
 import 'package:event_management_app/models/user.dart';
@@ -27,25 +27,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       bottomNavigationBar: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(20),
-        child: MaterialButton(
-          onPressed: () {
+        height: 60,
+        margin: const EdgeInsets.all(20),
+        child: InkWell(
+          onTap: () {
             Provider.of<LoginController>(context, listen: false)
                 .logout(context);
             Navigator.popUntil(context, (route) => route.isFirst);
             Navigator.pushReplacementNamed(context, '/login');
           },
-          height: 50,
-          disabledColor: primaryColorLight,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          textColor: Colors.white,
-          color: primaryColor,
-          child: const Text(
-            'LOGOUT',
-            style: TextStyle(fontWeight: FontWeight.w600),
+          child: Material(
+            elevation: 5.0,
+            shadowColor: Theme.of(context).colorScheme.onSurface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Center(
+              child: Text(
+                'settings_screen.logout'.tr(),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.red,
+                  fontSize: 16,
+                ),
+              ),
+            ),
           ),
         ),
       ),

@@ -79,6 +79,21 @@ class API {
     }
   }
 
+  Future<bool> updateUserProfile({required String name}) async {
+    try {
+      addToken();
+      Response response = await dio.put('users/profile', data: {
+        'name': name,
+      });
+      bool success = response.data['success'];
+      return success;
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return false;
+    }
+  }
+
   Future<List<User>> getUserList() async {
     try {
       addToken();
