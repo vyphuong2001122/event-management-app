@@ -1,9 +1,11 @@
 import 'package:event_management_app/api.dart';
 import 'package:event_management_app/models/event.dart';
+import 'package:event_management_app/models/ticket.dart';
 import 'package:flutter/material.dart';
 
 class EventController with ChangeNotifier {
   List<Event> events = [];
+  List<Ticket> myTickets = [];
   bool loading = false;
 
   TextEditingController eventNameController = TextEditingController();
@@ -58,6 +60,22 @@ class EventController with ChangeNotifier {
     }
   }
 
+  // Lấy list events từ API
+  Future<void> getMyTicketList() async {
+    try {
+      loading = true;
+      notifyListeners();
+      myTickets = await API().getMyTicketList();
+      notifyListeners();
+      loading = false;
+      notifyListeners();
+    } catch (e, st) {
+      print('$e $st');
+      loading = false;
+      notifyListeners();
+    }
+  }
+
   // Lấy 1 event chi tiết từ API
   Future<Event?> getDetailEvent(int id) async {
     try {
@@ -67,6 +85,23 @@ class EventController with ChangeNotifier {
       loading = false;
       notifyListeners();
       return event;
+    } catch (e, st) {
+      print('$e $st');
+      loading = false;
+      notifyListeners();
+      return null;
+    }
+  }
+
+  // Lấy 1 event chi tiết từ API
+  Future<String?> registerForEvent(int id) async {
+    try {
+      loading = true;
+      notifyListeners();
+      String? qrKey = await API().registerForEvent(id);
+      loading = false;
+      notifyListeners();
+      return qrKey;
     } catch (e, st) {
       print('$e $st');
       loading = false;

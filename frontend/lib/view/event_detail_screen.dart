@@ -4,6 +4,7 @@ import 'package:event_management_app/models/event.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class EventDetailScreen extends StatefulWidget {
   const EventDetailScreen({super.key});
@@ -39,6 +40,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> param =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     return Consumer<EventController>(builder: (context, eventController, _) {
       return Scaffold(
         appBar: AppBar(
@@ -72,6 +75,13 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        if (param['qr'] != null)
+                          Center(
+                            child: QrImageView(
+                              data: param['qr'],
+                              size: 200,
+                            ),
+                          ),
                         Text(
                           event?.title ?? '',
                           style: TextStyle(
@@ -129,7 +139,33 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
           width: double.infinity,
           padding: const EdgeInsets.all(20),
           child: MaterialButton(
-            onPressed: eventController.loading ? null : () {},
+            onPressed: eventController.loading
+                ? null
+                : () {
+                    if (event?.id != null) {
+                      eventController
+                          .registerForEvent(event!.id!)
+                          .then((qrKey) {
+                        if (qrKey != null) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return SimpleDialog(
+                                title: Text('Save this QR for later'),
+                                children: [
+                                  QrImageView(
+                                    data: qrKey,
+                                    version: QrVersions.auto,
+                                    size: 200.0,
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      });
+                    }
+                  },
             height: 50,
             disabledColor: primaryColorLight,
             shape: RoundedRectangleBorder(

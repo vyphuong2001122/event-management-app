@@ -1,12 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_management_app/controllers/event_controller.dart';
 import 'package:event_management_app/controllers/home_controller.dart';
 import 'package:event_management_app/controllers/login_controller.dart';
 import 'package:event_management_app/controllers/theme_controller.dart';
-import 'package:event_management_app/models/event.dart';
+import 'package:event_management_app/models/ticket.dart';
 import 'package:event_management_app/models/user.dart';
-import 'package:event_management_app/view/widgets/event_item.dart';
 import 'package:event_management_app/view/widgets/home_menu_widget.dart';
 import 'package:event_management_app/view/widgets/section_widget.dart';
+import 'package:event_management_app/view/widgets/ticket_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,16 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Event> events = [
-    Event(
-      title: 'YEAR END PARTY',
-      description: 'This is a YEP event',
-      date: DateTime.now(),
-      category: 'Party',
-      location: 'Main Hall',
-    ),
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -39,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Provider.of<LoginController>(context, listen: false).logout(context);
         }
       });
+      Provider.of<EventController>(context, listen: false).getMyTicketList();
     });
   }
 
@@ -55,8 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Image.asset('assets/images/home_background.png'),
             ),
           ),
-          Consumer2<ThemeController, HomeController>(
-            builder: (context, themeController, homeController, _) {
+          Consumer3<ThemeController, HomeController, EventController>(
+            builder:
+                (context, themeController, homeController, eventController, _) {
               User? user = homeController.currentUser;
               return SingleChildScrollView(
                 child: Padding(
@@ -89,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             TextSpan(
                               text: 'home_screen.welcome_back'.tr(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 20,
                               ),
                             ),
@@ -105,24 +98,25 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(height: 40),
-                      SectionWidget(
-                        title: 'home_screen.your_events'.tr(),
-                        content: SizedBox(
-                          height: 240,
-                          width: double.infinity,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 8),
-                            children: [
-                              for (Event event in events)
-                                EventItem(
-                                  event: event,
-                                ),
-                            ],
+                      if (eventController.myTickets.isNotEmpty)
+                        SectionWidget(
+                          title: 'home_screen.your_events'.tr(),
+                          content: SizedBox(
+                            height: 240,
+                            width: double.infinity,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 8),
+                              children: [
+                                for (Ticket ticket in eventController.myTickets)
+                                  TicketItem(
+                                    ticket: ticket,
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
                       const SizedBox(height: 20),
                       SectionWidget(
                         title: 'home_screen.functions'.tr(),

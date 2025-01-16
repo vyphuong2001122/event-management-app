@@ -21,7 +21,7 @@ class Event {
       title: json['name'],
       description: json['description'],
       location: json['location'],
-      category: json['category'],
+      category: json['category'] ?? '',
       date: DateTime.tryParse(json['date'] ?? '') ?? DateTime.now(),
     );
   }

@@ -27,7 +27,7 @@ class LoginController with ChangeNotifier {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           backgroundColor: Colors.red,
-          content: Text("Wrong email or password"),
+          content: Text("Failed to login"),
         ));
       }
     }

@@ -1,11 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:event_management_app/main.dart';
 import 'package:event_management_app/models/event.dart';
+import 'package:event_management_app/models/ticket.dart';
 import 'package:event_management_app/models/user.dart';
 
 class API {
   final Dio dio = Dio(BaseOptions(
     baseUrl: 'https://be-1z7j.onrender.com/',
+    connectTimeout: const Duration(seconds: 30),
+    receiveTimeout: const Duration(seconds: 30),
+    sendTimeout: const Duration(seconds: 30),
   ));
 
   // Đăng nhập
@@ -137,6 +141,27 @@ class API {
     }
   }
 
+  Future<List<Ticket>> getMyTicketList() async {
+    try {
+      addToken();
+      Response response = await dio.get('tickets/myticket');
+      bool success = response.data['success'];
+      if (success) {
+        List<Ticket> tickets = [];
+        for (Map<String, dynamic> eventData in (response.data['tickets'])) {
+          tickets.add(Ticket.fromJson(eventData));
+        }
+        return tickets;
+      } else {
+        return [];
+      }
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return [];
+    }
+  }
+
   Future<Event?> getEventDetail(int id) async {
     try {
       addToken();
@@ -147,6 +172,22 @@ class API {
       } else {
         return null;
       }
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return null;
+    }
+  }
+
+  Future<String?> registerForEvent(int id) async {
+    try {
+      addToken();
+      Response response = await dio.put('events/$id/register');
+      bool success = response.data['success'];
+      if (success) {
+        return response.data['qrKey'];
+      }
+      return null;
     } catch (e, st) {
       // Bị lỗi
       print('$e $st');
