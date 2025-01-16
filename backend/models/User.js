@@ -15,7 +15,12 @@ const User = sequelize.define('User', {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        indexes:[
+            {
+                unique: true,
+                fields: ['email']
+            }
+        ],
     },
     password: {
         type: DataTypes.STRING,
@@ -28,10 +33,6 @@ const User = sequelize.define('User', {
     },
     profile_picture: {
         type: DataTypes.STRING,
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
     },
 });
 

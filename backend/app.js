@@ -11,7 +11,7 @@ app.use(express.json());
         console.log('Database connected.');
 
         // Sync models
-        await sequelize.sync({ alter: true }); // Use `alter: true` for development, remove for production
+        await sequelize.sync(); // Use `alter: true` for development, remove for production
         console.log('Database synced.');
 
         app.listen(3000, () => console.log('Server running on http://localhost:3000'));
@@ -20,19 +20,12 @@ app.use(express.json());
     }
 })();
 
-(async() => {
-    try {
-        await sequelize.sync({ alter: true }); // Đồng bộ với mối quan hệ mới
-        console.log('Database synced successfully.');
-    } catch (error) {
-        console.error('Error syncing database:', error);
-    }
-})();
-
 const userRoutes = require('./routes/users');
 const eventRoutes = require('./routes/events');
 const ticketRoutes = require('./routes/tickets');
+const speakerRoutes = require('./routes/speakers');
 
 app.use('/users', userRoutes);
 app.use('/events', eventRoutes);
 app.use('/tickets', ticketRoutes);
+app.use('/speakers', speakerRoutes);
