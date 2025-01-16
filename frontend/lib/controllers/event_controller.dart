@@ -93,12 +93,13 @@ class EventController with ChangeNotifier {
     }
   }
 
-  // Lấy 1 event chi tiết từ API
+  // Đăng ký tham gia 1 event
   Future<String?> registerForEvent(int id) async {
     try {
       loading = true;
       notifyListeners();
       String? qrKey = await API().registerForEvent(id);
+      await getMyTicketList();
       loading = false;
       notifyListeners();
       return qrKey;
@@ -107,6 +108,24 @@ class EventController with ChangeNotifier {
       loading = false;
       notifyListeners();
       return null;
+    }
+  }
+
+  // Organizer quét mã QR
+  Future<bool> validateAttendance(String qr) async {
+    try {
+      loading = true;
+      notifyListeners();
+      bool success = await API().validateAttendance(qr);
+      await getMyTicketList();
+      loading = false;
+      notifyListeners();
+      return success;
+    } catch (e, st) {
+      print('$e $st');
+      loading = false;
+      notifyListeners();
+      return false;
     }
   }
 }

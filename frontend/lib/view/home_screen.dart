@@ -68,12 +68,40 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.pushNamed(context, '/profile');
                             },
                           ),
-                          IconButton(
-                            icon: const Icon(Icons.qr_code_scanner),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/scan-qr');
-                            },
-                          ),
+                          if (homeController.currentUser?.role == 'organizer')
+                            IconButton(
+                              icon: const Icon(Icons.qr_code_scanner),
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/scan-qr')
+                                    .then((success) {
+                                  if (success is bool) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: Container(
+                                            width: 200,
+                                            height: 200,
+                                            alignment: Alignment.center,
+                                            child: success
+                                                ? const Icon(
+                                                    Icons.check_circle,
+                                                    color: Colors.green,
+                                                    size: 150,
+                                                  )
+                                                : const Icon(
+                                                    Icons.cancel,
+                                                    color: Colors.red,
+                                                    size: 150,
+                                                  ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                });
+                              },
+                            ),
                         ],
                       ),
                       const SizedBox(height: 20),

@@ -182,16 +182,34 @@ class API {
   Future<String?> registerForEvent(int id) async {
     try {
       addToken();
-      Response response = await dio.put('events/$id/register');
+      Response response = await dio.post('events/$id/register');
       bool success = response.data['success'];
       if (success) {
-        return response.data['qrKey'];
+        return response.data['data']['qrKey'];
       }
       return null;
     } catch (e, st) {
       // Bị lỗi
       print('$e $st');
       return null;
+    }
+  }
+
+  Future<bool> validateAttendance(String qrKey) async {
+    try {
+      addToken();
+      Response response = await dio.post('events/validate-attendance', data: {
+        'qrKey': qrKey,
+      });
+      bool success = response.data['success'];
+      if (success) {
+        return true;
+      }
+      return false;
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return false;
     }
   }
 }

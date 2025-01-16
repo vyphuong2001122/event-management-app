@@ -135,56 +135,61 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
             ),
           ],
         ),
-        bottomNavigationBar: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(20),
-          child: MaterialButton(
-            onPressed: eventController.loading
-                ? null
-                : () {
-                    if (event?.id != null) {
-                      eventController
-                          .registerForEvent(event!.id!)
-                          .then((qrKey) {
-                        if (qrKey != null) {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return SimpleDialog(
-                                title: Text('Save this QR for later'),
-                                children: [
-                                  QrImageView(
-                                    data: qrKey,
-                                    version: QrVersions.auto,
-                                    size: 200.0,
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                      });
-                    }
-                  },
-            height: 50,
-            disabledColor: primaryColorLight,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            textColor: Colors.white,
-            color: primaryColor,
-            child: eventController.loading
-                ? const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(),
-                  )
-                : const Text(
-                    'APPLY FOR THIS EVENT',
-                    style: TextStyle(fontWeight: FontWeight.w600),
+        bottomNavigationBar: param['qr'] == null
+            ? Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                child: MaterialButton(
+                  onPressed: eventController.loading
+                      ? null
+                      : () {
+                          if (event?.id != null) {
+                            eventController
+                                .registerForEvent(event!.id!)
+                                .then((qrKey) {
+                              if (qrKey != null) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Save this QR for later'),
+                                      content: Container(
+                                        width: 200,
+                                        height: 200,
+                                        alignment: Alignment.center,
+                                        child: QrImageView(
+                                          data: qrKey,
+                                          version: QrVersions.auto,
+                                          size: 200.0,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                            });
+                          }
+                        },
+                  height: 50,
+                  disabledColor: primaryColorLight,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
-          ),
-        ),
+                  textColor: Colors.white,
+                  color: primaryColor,
+                  child: eventController.loading
+                      ? const SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(),
+                        )
+                      : const Text(
+                          'APPLY FOR THIS EVENT',
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                ),
+              )
+            : null,
       );
     });
   }
