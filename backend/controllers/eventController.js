@@ -170,6 +170,10 @@ exports.validateAttendance = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Invalid QR key or participant not found.' });
     }
 
+    if (registration.attended) {
+      res.status(500).json({ success: false, message: 'This QR code is already scanned' });
+    }
+
     // Mark as attended
     registration.attended = true;
     await registration.save();

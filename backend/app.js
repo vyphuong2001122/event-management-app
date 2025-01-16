@@ -11,21 +11,12 @@ app.use(express.json());
         console.log('Database connected.');
 
         // Sync models
-        await sequelize.sync({ alter: true }); // Use `alter: true` for development, remove for production
+        await sequelize.sync(); // Use `alter: true` for development, remove for production
         console.log('Database synced.');
 
         app.listen(3000, () => console.log('Server running on http://localhost:3000'));
     } catch (error) {
         console.error('Database connection error:', error);
-    }
-})();
-
-(async() => {
-    try {
-        await sequelize.sync({ alter: true }); // Đồng bộ với mối quan hệ mới
-        console.log('Database synced successfully.');
-    } catch (error) {
-        console.error('Error syncing database:', error);
     }
 })();
 

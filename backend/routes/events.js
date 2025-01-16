@@ -11,7 +11,7 @@ router.get('/:id', authenticateJWT, eventController.getEventById);
 router.put('/:id', authenticateJWT, requireOrganizer, eventController.updateEvent);
 router.delete('/:id', authenticateJWT, requireOrganizer, eventController.deleteEvent);
 // Event registration and attendance routes
-router.post(':id/register', eventController.signUpForEvent);
+router.post('/:id/register', eventController.signUpForEvent);
 router.post('/validate-attendance', authenticateJWT, requireOrganizer, eventController.validateAttendance);
 
 module.exports = router;
