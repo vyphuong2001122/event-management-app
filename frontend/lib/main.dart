@@ -3,6 +3,7 @@ import 'package:event_management_app/colors.dart';
 import 'package:event_management_app/controllers/event_controller.dart';
 import 'package:event_management_app/controllers/home_controller.dart';
 import 'package:event_management_app/controllers/login_controller.dart';
+import 'package:event_management_app/controllers/profile_controller.dart';
 import 'package:event_management_app/controllers/register_controller.dart';
 import 'package:event_management_app/controllers/theme_controller.dart';
 import 'package:event_management_app/controllers/user_controller.dart';
@@ -39,6 +40,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ThemeController()),
         ChangeNotifierProvider(create: (_) => HomeController()),
         ChangeNotifierProvider(create: (_) => UserController()),
+        ChangeNotifierProvider(create: (_) => ProfileController()),
       ],
       child: EasyLocalization(
           supportedLocales: const [

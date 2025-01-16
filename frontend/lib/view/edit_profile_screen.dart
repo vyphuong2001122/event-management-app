@@ -13,6 +13,18 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<ProfileController>(context, listen: false)
+          .updateNameController(
+        Provider.of<HomeController>(context, listen: false).currentUser?.name ??
+            '',
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer2<ProfileController, HomeController>(
         builder: (context, profileController, homeController, _) {
@@ -52,7 +64,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                         controller: profileController.nameController,
                         keyboardType: TextInputType.name,
-                        obscureText: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Name required';
@@ -87,7 +98,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               OutlineInputBorder(borderSide: BorderSide.none),
                         ),
                         enabled: false,
-                        controller: TextEditingController(),
+                        controller: TextEditingController(
+                          text: homeController.currentUser?.email,
+                        ),
                         keyboardType: TextInputType.text,
                       ),
                     ),

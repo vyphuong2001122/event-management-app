@@ -5,6 +5,11 @@ class ProfileController with ChangeNotifier {
   final TextEditingController nameController = TextEditingController();
   bool loading = false;
 
+  void updateNameController(String name) {
+    nameController.text = name;
+    notifyListeners();
+  }
+
   Future<bool> saveProfile() {
     loading = true;
     notifyListeners();
