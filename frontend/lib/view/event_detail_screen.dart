@@ -1,8 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_management_app/colors.dart';
 import 'package:event_management_app/controllers/event_controller.dart';
 import 'package:event_management_app/models/event.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -152,7 +152,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(
-                                      title: Text('Save this QR for later'),
+                                      title: Text(
+                                          'event_detail_screen.save_qr_code'
+                                              .tr()),
                                       content: Container(
                                         width: 200,
                                         height: 200,
@@ -183,9 +185,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           height: 24,
                           child: CircularProgressIndicator(),
                         )
-                      : const Text(
-                          'APPLY FOR THIS EVENT',
-                          style: TextStyle(fontWeight: FontWeight.w600),
+                      : Text(
+                          'event_detail_screen.apply'.tr(),
+                          style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
                 ),
               )

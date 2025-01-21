@@ -11,12 +11,13 @@
   },
   "home_screen": {
     "welcome_back": "Welcome back, ",
-    "your_events": "Your events",
+    "your_events": "Your tickets",
     "functions": "Functions",
     "all_events": "All events",
     "users": "Users",
     "speakers": "Speakers",
-    "settings": "Settings"
+    "settings": "Settings",
+    "list_empty": "The list is empty"
   },
   "settings_screen": {
     "settings": "Settings",
@@ -24,5 +25,9 @@
     "dark_mode": "Dark mode",
     "language": "Language",
     "select_language": "Select language"
+  },
+  "event_detail_screen": {
+    "apply": "APPLY FOR THIS EVENT",
+    "save_qr_code": "Save this QR for later"
   }
 }

@@ -11,12 +11,13 @@
   },
   "home_screen": {
     "welcome_back": "Mừng bạn trở lại, ",
-    "your_events": "Sự kiện của bạn",
+    "your_events": "Vé của bạn",
     "functions": "Tính năng",
     "all_events": "Tất cả sự kiện",
     "users": "Người dùng",
     "speakers": "Diễn giả",
-    "settings": "Tuỳ chỉnh"
+    "settings": "Tuỳ chỉnh",
+    "list_empty": "Danh sách đang trống"
   },
   "settings_screen": {
     "settings": "Tuỳ chỉnh",
@@ -24,5 +25,9 @@
     "dark_mode": "Chủ đề tối",
     "language": "Ngôn ngữ",
     "select_language": "Chọn ngôn ngữ"
+  },
+  "event_detail_screen": {
+    "apply": "THAM GIA SỰ KIỆN NÀY",
+    "save_qr_code": "Lưu mã QR này để scan tại sự kiện"
   }
 }

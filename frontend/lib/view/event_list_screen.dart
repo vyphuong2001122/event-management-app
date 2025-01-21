@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:event_management_app/controllers/event_controller.dart';
 import 'package:event_management_app/controllers/home_controller.dart';
 import 'package:event_management_app/models/event.dart';
@@ -27,7 +28,7 @@ class _EventListScreenState extends State<EventListScreen> {
       builder: (context, eventController, homeController, _) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('All events'),
+            title: Text('home_screen.all_events'.tr()),
           ),
           body: Padding(
             padding: const EdgeInsets.all(20),
@@ -51,7 +52,7 @@ class _EventListScreenState extends State<EventListScreen> {
                     Container(
                       alignment: Alignment.center,
                       height: 500,
-                      child: const Text('The list is empty'),
+                      child: Text('home_screen.list_empty'.tr()),
                     )
                 ],
               ),
