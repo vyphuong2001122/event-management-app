@@ -29,5 +29,8 @@
   "event_detail_screen": {
     "apply": "THAM GIA SỰ KIỆN NÀY",
     "save_qr_code": "Lưu mã QR này để scan tại sự kiện"
+  },
+  "speaker_list_screen": {
+    "all_speakers": "Tất cả diễn giả"
   }
 }

@@ -29,5 +29,8 @@
   "event_detail_screen": {
     "apply": "APPLY FOR THIS EVENT",
     "save_qr_code": "Save this QR for later"
+  },
+  "speaker_list_screen": {
+    "all_speakers": "All speakers"
   }
 }

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:event_management_app/main.dart';
 import 'package:event_management_app/models/event.dart';
+import 'package:event_management_app/models/speaker.dart';
 import 'package:event_management_app/models/ticket.dart';
 import 'package:event_management_app/models/user.dart';
 
@@ -210,6 +211,27 @@ class API {
       // Bị lỗi
       print('$e $st');
       return false;
+    }
+  }
+
+  Future<List<Speaker>> getSpeakers() async {
+    try {
+      addToken();
+      Response response = await dio.get('speakers');
+      bool success = response.data['success'];
+      if (success) {
+        List<Speaker> speakers = [];
+        for (Map<String, dynamic> eventData in (response.data['data'])) {
+          speakers.add(Speaker.fromJson(eventData));
+        }
+        return speakers;
+      } else {
+        return [];
+      }
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return [];
     }
   }
 }

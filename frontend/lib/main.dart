@@ -5,6 +5,7 @@ import 'package:event_management_app/controllers/home_controller.dart';
 import 'package:event_management_app/controllers/login_controller.dart';
 import 'package:event_management_app/controllers/profile_controller.dart';
 import 'package:event_management_app/controllers/register_controller.dart';
+import 'package:event_management_app/controllers/speaker_controller.dart';
 import 'package:event_management_app/controllers/theme_controller.dart';
 import 'package:event_management_app/controllers/user_controller.dart';
 import 'package:event_management_app/view/add_new_event_screen.dart';
@@ -17,6 +18,7 @@ import 'package:event_management_app/view/profile_screen.dart';
 import 'package:event_management_app/view/register_screen.dart';
 import 'package:event_management_app/view/scan_qr_screen.dart';
 import 'package:event_management_app/view/settings_screen.dart';
+import 'package:event_management_app/view/speaker_list_screen.dart';
 import 'package:event_management_app/view/user_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +43,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => HomeController()),
         ChangeNotifierProvider(create: (_) => UserController()),
         ChangeNotifierProvider(create: (_) => ProfileController()),
+        ChangeNotifierProvider(create: (_) => SpeakerController()),
       ],
       child: EasyLocalization(
           supportedLocales: const [
@@ -110,6 +113,7 @@ class MyApp extends StatelessWidget {
             '/event-detail': (context) => const EventDetailScreen(),
             '/settings': (context) => const SettingsScreen(),
             '/user-list': (context) => const UserListScreen(),
+            '/speaker-list': (context) => const SpeakerListScreen(),
           },
         );
       },

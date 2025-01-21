@@ -168,6 +168,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             HomeMenuWidget(
                               icon: 'assets/images/icon_microphone.png',
                               title: 'home_screen.speakers'.tr(),
+                              onTap: () {
+                                Navigator.pushNamed(context, '/speaker-list');
+                              },
                             ),
                             HomeMenuWidget(
                                 icon: 'assets/images/icon_settings.png',
