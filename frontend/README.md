@@ -40,23 +40,15 @@ This project leverages **Flutter** and **Firebase** to develop a cross-platform 
 4. flutter run
 
 ## Directory Structure
-lib/
-
-├── models/          # Data models
-
-├── view/            # UI screens
-
-│   ├── widgets/     # Reusable components
-
-├── controllers/     # Provider controllers
-
-├── widgets/         # Reusable components
-
-├── api.dart         # API and database services
-
-├── colors.dart      # Reusable colors
-
-└── main.dart        # Entry point
+    lib/
+    ├── models/          # Data models
+    ├── view/            # UI screens
+    │   ├── widgets/     # Reusable components
+    ├── controllers/     # Provider controllers
+    ├── widgets/         # Reusable components
+    ├── api.dart         # API and database services
+    ├── colors.dart      # Reusable colors
+    └── main.dart        # Entry point
 
 ## Contributors
 Nguyễn Lê Phương Vy
