@@ -1,16 +1,58 @@
-# event_management_app
+# Event Management Application
 
-A new Flutter project.
+This project leverages **Flutter** and **Firebase** to develop a cross-platform mobile application for managing events efficiently. The app supports Android, iOS, and Web platforms, providing an intuitive and user-friendly experience.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+### Roles
+- attendee
+- organizer
+- admin
 
-A few resources to get you started if this is your first Flutter project:
+### Attendee
+- Event registration with e-tickets.
+- Schedule viewing and notifications.
+- QR code-based check-in/out.
+- Event feedback and ratings.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Event Organizers
+- Event creation and management.
+- Schedule organization for sessions and activities.
+- Real-time participant tracking.
+- Reporting and analysis (attendance, feedback, etc.).
+- Volunteer and budget management.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Admins
+- User account management
+- Speakers and guests management
+- Event list management.
+
+### Utilities
+- Multi-lingual (currently supports English and Vietnamese)
+- Dark mode
+
+## Installation and Setup
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+2. cd event-management-app
+3. flutter pub get
+4. flutter run
+
+## Directory Structure
+lib/
+├── models/             # Data models
+├── view/               # UI screens
+├───── widgets/         # Reusable components
+├── controllers/        # Provider controllers
+├── widgets/            # Reusable components
+├── api.dart            # API and database services
+├── colors.dart         # Reusable colors
+└── main.dart           # Entry point
+
+## Contributors
+Nguyễn Lê Phương Vy
+Nguyễn Quốc Thịnh
+
+## Accounts
+- Firebase: Login with Google account (519h0363@student.tdtu.edu.vn)
