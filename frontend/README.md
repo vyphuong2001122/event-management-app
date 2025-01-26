@@ -34,20 +34,28 @@ This project leverages **Flutter** and **Firebase** to develop a cross-platform 
 ## Installation and Setup
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/vyphuong2001122/event-management-app.git
 2. cd event-management-app
 3. flutter pub get
 4. flutter run
 
 ## Directory Structure
 lib/
+
 ├── models/          # Data models
+
 ├── view/            # UI screens
+
 │   ├── widgets/     # Reusable components
+
 ├── controllers/     # Provider controllers
+
 ├── widgets/         # Reusable components
+
 ├── api.dart         # API and database services
+
 ├── colors.dart      # Reusable colors
+
 └── main.dart        # Entry point
 
 ## Contributors
