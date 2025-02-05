@@ -37,6 +37,7 @@ dependencies:
   easy_localization: ^3.0.3
   qr_flutter: ^4.1.0
   flutter_launcher_icons: ^0.14.3
+  dropdown_search: ^6.0.2
   flutter:
     sdk: flutter
 

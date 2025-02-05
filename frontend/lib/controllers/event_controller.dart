@@ -1,5 +1,6 @@
 import 'package:event_management_app/api.dart';
 import 'package:event_management_app/models/event.dart';
+import 'package:event_management_app/models/speaker.dart';
 import 'package:event_management_app/models/ticket.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +11,12 @@ class EventController with ChangeNotifier {
 
   TextEditingController eventNameController = TextEditingController();
   TextEditingController eventDescriptionController = TextEditingController();
-  TextEditingController eventCategoryController = TextEditingController();
+  TextEditingController eventCategoryController = TextEditingController(
+    text: 'Workshop',
+  );
   TextEditingController eventLocationController = TextEditingController();
   DateTime eventDate = DateTime.now();
+  List<Speaker> speakers = [];
 
   // Update date của event
   void updateEventDate(DateTime dateTime) {
@@ -20,17 +24,47 @@ class EventController with ChangeNotifier {
     notifyListeners();
   }
 
-  void createEvent() {
-    // Thêm event mới vào list
-    events.add(Event(
-      title: eventNameController.text,
-      description: eventDescriptionController.text,
-      category: eventCategoryController.text,
-      location: eventLocationController.text,
-      date: eventDate,
-    ));
-    // Clear hết cái ô nhập sau khi submit
-    resetEvent();
+  Future<bool> createEvent() async {
+    try {
+      loading = true;
+      notifyListeners();
+      Event newEvent = Event(
+        title: eventNameController.text,
+        description: eventDescriptionController.text,
+        category: eventCategoryController.text,
+        location: eventLocationController.text,
+        date: eventDate,
+        speakers: speakers,
+      );
+      bool success = await API().addNewEvent(newEvent);
+      if (success) {
+        // Thêm event mới vào list
+        events.add(newEvent);
+        // Clear hết cái ô nhập sau khi submit
+        resetEvent();
+        loading = false;
+        notifyListeners();
+      }
+      return success;
+    } catch (e, st) {
+      print('$e $st');
+      loading = false;
+      notifyListeners();
+      return false;
+    }
+  }
+
+  void selectSpeaker(Speaker speaker) {
+    if (!speakers.contains(speaker)) {
+      speakers.add(speaker);
+    }
+    notifyListeners();
+  }
+
+  void deselectSpeaker(Speaker speaker) {
+    if (speakers.contains(speaker)) {
+      speakers.remove(speaker);
+    }
     notifyListeners();
   }
 
@@ -41,6 +75,7 @@ class EventController with ChangeNotifier {
     eventDescriptionController.clear();
     eventCategoryController.clear();
     eventLocationController.clear();
+    speakers.clear();
     notifyListeners();
   }
 

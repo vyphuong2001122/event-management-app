@@ -180,6 +180,20 @@ class API {
     }
   }
 
+  Future<bool> addNewEvent(Event newEvent) async {
+    try {
+      addToken();
+      Response response =
+          await dio.post('events/create', data: newEvent.toJson());
+      bool success = response.data['success'];
+      return success;
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return false;
+    }
+  }
+
   Future<String?> registerForEvent(int id) async {
     try {
       addToken();
