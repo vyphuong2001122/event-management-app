@@ -248,4 +248,17 @@ class API {
       return [];
     }
   }
+
+  Future<bool> addNewSpeaker(Speaker speaker) async {
+    try {
+      addToken();
+      Response response = await dio.post('speakers', data: speaker.toJson());
+      bool success = response.data['success'];
+      return success;
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return false;
+    }
+  }
 }

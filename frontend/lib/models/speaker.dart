@@ -19,4 +19,12 @@ class Speaker {
       bio: json['bio'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'bio': bio,
+      'profilePicture': 'image.png',
+    };
+  }
 }

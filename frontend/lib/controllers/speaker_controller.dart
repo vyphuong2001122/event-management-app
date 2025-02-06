@@ -6,7 +6,10 @@ class SpeakerController with ChangeNotifier {
   List<Speaker> speakers = [];
   bool loading = false;
 
-  // Lấy list events từ API
+  TextEditingController speakerNameController = TextEditingController();
+  TextEditingController speakerBioController = TextEditingController();
+
+  // Lấy list speakers từ API
   Future<void> getSpeakerList() async {
     try {
       loading = true;
@@ -20,5 +23,40 @@ class SpeakerController with ChangeNotifier {
       loading = false;
       notifyListeners();
     }
+  }
+
+  Future<bool> createSpeaker() async {
+    try {
+      loading = true;
+      notifyListeners();
+      Speaker newSpeaker = Speaker(
+        name: speakerNameController.text,
+        bio: speakerBioController.text,
+        profilePicture: 'image.png',
+        id: 0,
+      );
+      bool success = await API().addNewSpeaker(newSpeaker);
+      if (success) {
+        // Thêm speaker mới vào list
+        speakers.add(newSpeaker);
+        // Clear hết cái ô nhập sau khi submit
+        resetSpeakerInput();
+        loading = false;
+        notifyListeners();
+      }
+      return success;
+    } catch (e, st) {
+      print('$e $st');
+      loading = false;
+      notifyListeners();
+      return false;
+    }
+  }
+
+  // Clear hết input
+  void resetSpeakerInput() {
+    speakerNameController.clear();
+    speakerBioController.clear();
+    notifyListeners();
   }
 }

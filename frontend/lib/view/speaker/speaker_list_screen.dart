@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:event_management_app/controllers/home_controller.dart';
 import 'package:event_management_app/controllers/speaker_controller.dart';
 import 'package:event_management_app/models/speaker.dart';
 import 'package:event_management_app/view/widgets/speaker_item.dart';
@@ -23,8 +24,8 @@ class _SpeakerListScreenState extends State<SpeakerListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SpeakerController>(
-      builder: (context, speakerController, _) {
+    return Consumer2<SpeakerController, HomeController>(
+      builder: (context, speakerController, homeController, _) {
         return Scaffold(
           appBar: AppBar(
             title: Text('speaker_list_screen.all_speakers'.tr()),
@@ -56,6 +57,14 @@ class _SpeakerListScreenState extends State<SpeakerListScreen> {
               ),
             ),
           ),
+          floatingActionButton: homeController.currentUser?.role == 'admin'
+              ? FloatingActionButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/add-new-speaker');
+                  },
+                  child: Icon(Icons.add),
+                )
+              : null,
         );
       },
     );

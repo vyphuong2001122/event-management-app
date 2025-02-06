@@ -8,18 +8,19 @@ import 'package:event_management_app/controllers/register_controller.dart';
 import 'package:event_management_app/controllers/speaker_controller.dart';
 import 'package:event_management_app/controllers/theme_controller.dart';
 import 'package:event_management_app/controllers/user_controller.dart';
-import 'package:event_management_app/view/add_new_event_screen.dart';
-import 'package:event_management_app/view/edit_profile_screen.dart';
-import 'package:event_management_app/view/event_detail_screen.dart';
-import 'package:event_management_app/view/event_list_screen.dart';
+import 'package:event_management_app/view/event/add_new_event_screen.dart';
+import 'package:event_management_app/view/event/event_detail_screen.dart';
+import 'package:event_management_app/view/event/event_list_screen.dart';
+import 'package:event_management_app/view/event/scan_qr_screen.dart';
 import 'package:event_management_app/view/home_screen.dart';
-import 'package:event_management_app/view/login_screen.dart';
-import 'package:event_management_app/view/profile_screen.dart';
-import 'package:event_management_app/view/register_screen.dart';
-import 'package:event_management_app/view/scan_qr_screen.dart';
+import 'package:event_management_app/view/login/login_screen.dart';
+import 'package:event_management_app/view/login/register_screen.dart';
+import 'package:event_management_app/view/profile/edit_profile_screen.dart';
+import 'package:event_management_app/view/profile/profile_screen.dart';
 import 'package:event_management_app/view/settings_screen.dart';
-import 'package:event_management_app/view/speaker_list_screen.dart';
-import 'package:event_management_app/view/user_list_screen.dart';
+import 'package:event_management_app/view/speaker/add_new_speaker_screen.dart';
+import 'package:event_management_app/view/speaker/speaker_list_screen.dart';
+import 'package:event_management_app/view/user/user_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -114,6 +115,7 @@ class MyApp extends StatelessWidget {
             '/settings': (context) => const SettingsScreen(),
             '/user-list': (context) => const UserListScreen(),
             '/speaker-list': (context) => const SpeakerListScreen(),
+            '/add-new-speaker': (context) => const AddNewSpeakerScreen(),
           },
         );
       },
