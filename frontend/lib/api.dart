@@ -295,4 +295,20 @@ class API {
       return false;
     }
   }
+
+  Future<bool> updateEvent(Event event) async {
+    try {
+      addToken();
+      Response response = await dio.put(
+        'events/${event.id}',
+        data: event.toJson(),
+      );
+      bool success = response.data['success'];
+      return success;
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return false;
+    }
+  }
 }

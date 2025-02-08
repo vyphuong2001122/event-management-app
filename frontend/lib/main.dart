@@ -8,8 +8,10 @@ import 'package:event_management_app/controllers/register_controller.dart';
 import 'package:event_management_app/controllers/speaker_controller.dart';
 import 'package:event_management_app/controllers/theme_controller.dart';
 import 'package:event_management_app/controllers/user_controller.dart';
+import 'package:event_management_app/models/event.dart';
 import 'package:event_management_app/models/speaker.dart';
 import 'package:event_management_app/view/event/add_new_event_screen.dart';
+import 'package:event_management_app/view/event/edit_event_screen.dart';
 import 'package:event_management_app/view/event/event_detail_screen.dart';
 import 'package:event_management_app/view/event/event_list_screen.dart';
 import 'package:event_management_app/view/event/scan_qr_screen.dart';
@@ -141,6 +143,17 @@ class MyApp extends StatelessWidget {
 
               return MaterialPageRoute(
                 builder: (context) => EditSpeakerScreen(speaker: speaker),
+              );
+            }
+
+            // Handle dynamic route: "/events/:id/edit"
+            if (uri.pathSegments.length == 3 &&
+                uri.pathSegments.first == 'events' &&
+                uri.pathSegments.last == 'edit') {
+              final event = settings.arguments as Event; // Extract the object
+
+              return MaterialPageRoute(
+                builder: (context) => EditEventScreen(event: event),
               );
             }
 

@@ -163,4 +163,21 @@ class EventController with ChangeNotifier {
       return false;
     }
   }
+
+  Future<bool> updateEvent(Event event) async {
+    try {
+      loading = true;
+      notifyListeners();
+      bool success = await API().updateEvent(event);
+      await getEventList();
+      loading = false;
+      notifyListeners();
+      return success;
+    } catch (e, st) {
+      print('$e $st');
+      loading = false;
+      notifyListeners();
+      return false;
+    }
+  }
 }

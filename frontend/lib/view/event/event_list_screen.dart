@@ -46,6 +46,9 @@ class _EventListScreenState extends State<EventListScreen> {
                         child: EventItem(
                           event: event,
                           width: MediaQuery.of(context).size.width,
+                          canEdit: homeController.currentUser?.role ==
+                                  'admin' ||
+                              homeController.currentUser?.role == 'organizer',
                         ),
                       )
                   else
