@@ -53,6 +53,23 @@ class SpeakerController with ChangeNotifier {
     }
   }
 
+  Future<bool> editSpeaker(Speaker speaker) async {
+    try {
+      loading = true;
+      notifyListeners();
+      bool success = await API().updateSpeaker(speaker);
+      if (success) {
+        getSpeakerList();
+      }
+      return success;
+    } catch (e, st) {
+      print('$e $st');
+      loading = false;
+      notifyListeners();
+      return false;
+    }
+  }
+
   // Clear hết input
   void resetSpeakerInput() {
     speakerNameController.clear();

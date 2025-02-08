@@ -163,7 +163,7 @@ class API {
     }
   }
 
-  Future<Event?> getEventDetail(int id) async {
+  Future<Event?> getEventDetail(String id) async {
     try {
       addToken();
       Response response = await dio.get('events/$id');
@@ -253,6 +253,40 @@ class API {
     try {
       addToken();
       Response response = await dio.post('speakers', data: speaker.toJson());
+      bool success = response.data['success'];
+      return success;
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return false;
+    }
+  }
+
+  Future<bool> updateUserRole(int userId, String role) async {
+    try {
+      addToken();
+      Response response = await dio.put(
+        'users/$userId/role',
+        data: {
+          'role': role,
+        },
+      );
+      bool success = response.data['success'];
+      return success;
+    } catch (e, st) {
+      // Bị lỗi
+      print('$e $st');
+      return false;
+    }
+  }
+
+  Future<bool> updateSpeaker(Speaker speaker) async {
+    try {
+      addToken();
+      Response response = await dio.put(
+        'speakers/${speaker.id}',
+        data: speaker.toJson(),
+      );
       bool success = response.data['success'];
       return success;
     } catch (e, st) {

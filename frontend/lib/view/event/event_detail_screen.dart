@@ -2,12 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:event_management_app/colors.dart';
 import 'package:event_management_app/controllers/event_controller.dart';
 import 'package:event_management_app/models/event.dart';
+import 'package:event_management_app/models/speaker.dart';
+import 'package:event_management_app/view/widgets/speaker_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class EventDetailScreen extends StatefulWidget {
-  const EventDetailScreen({super.key});
+  final String id;
+  final String? qr;
+  const EventDetailScreen({super.key, required this.id, this.qr});
 
   @override
   State<EventDetailScreen> createState() => _EventDetailScreenState();
@@ -22,13 +26,11 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
     super.initState();
     WidgetsBinding.instance.addTimingsCallback((timings) {
       if (mounted && !init) {
-        Map<String, dynamic> param =
-            ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
         setState(() {
           init = true;
         });
         Provider.of<EventController>(context, listen: false)
-            .getDetailEvent(param['id'])
+            .getDetailEvent(widget.id)
             .then((value) {
           setState(() {
             event = value;
@@ -40,8 +42,6 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> param =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     return Consumer<EventController>(builder: (context, eventController, _) {
       return Scaffold(
         appBar: AppBar(
@@ -75,10 +75,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (param['qr'] != null)
+                        if (widget.qr != null)
                           Center(
                             child: QrImageView(
-                              data: param['qr'],
+                              data: widget.qr!,
                               size: 200,
                             ),
                           ),
@@ -125,6 +125,32 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                               ),
                             ],
                           ),
+                        if (event != null && event!.speakers.isNotEmpty)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 10),
+                              Text(
+                                'Speakers',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 350,
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    for (Speaker speaker in event!.speakers)
+                                      SpeakerItem(
+                                        speaker: speaker,
+                                      ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         const SizedBox(height: 10),
                         Text(event?.description ?? ''),
                       ],
@@ -135,7 +161,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
             ),
           ],
         ),
-        bottomNavigationBar: param['qr'] == null
+        bottomNavigationBar: widget.qr == null
             ? Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),

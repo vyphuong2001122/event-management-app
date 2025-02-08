@@ -112,7 +112,7 @@ class EventController with ChangeNotifier {
   }
 
   // Lấy 1 event chi tiết từ API
-  Future<Event?> getDetailEvent(int id) async {
+  Future<Event?> getDetailEvent(String id) async {
     try {
       loading = true;
       notifyListeners();

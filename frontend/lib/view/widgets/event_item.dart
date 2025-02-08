@@ -18,9 +18,7 @@ class _EventItemState extends State<EventItem> {
     return InkWell(
       onTap: () {
         if (widget.event.id != null) {
-          Navigator.pushNamed(context, '/event-detail', arguments: {
-            'id': widget.event.id,
-          });
+          Navigator.pushNamed(context, '/event-detail/${widget.event.id}');
         }
       },
       child: Container(

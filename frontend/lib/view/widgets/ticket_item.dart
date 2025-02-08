@@ -17,10 +17,11 @@ class _TicketItemState extends State<TicketItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/event-detail', arguments: {
-          'id': widget.ticket.eventId,
-          'qr': widget.ticket.qrKey,
-        });
+        Navigator.pushNamed(
+          context,
+          '/event-detail/${widget.ticket.eventId}',
+          arguments: widget.ticket.qrKey,
+        );
       },
       child: Container(
         width: widget.width,

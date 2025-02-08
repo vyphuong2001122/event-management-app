@@ -21,14 +21,16 @@ class Event {
 
   factory Event.fromJson(Map<String, dynamic> json) {
     List<Speaker> speakers = [];
-    for (Map<String, dynamic> speaker in json['speakers']) {
-      speakers.add(Speaker.fromJson(speaker));
+    if (json['Speakers'] != null) {
+      for (Map<String, dynamic> speaker in json['Speakers']) {
+        speakers.add(Speaker.fromJson(speaker));
+      }
     }
     return Event(
       id: json['id'],
-      title: json['name'],
-      description: json['description'],
-      location: json['location'],
+      title: json['name'] ?? '',
+      description: json['description'] ?? '',
+      location: json['location'] ?? '',
       category: json['category'] ?? '',
       date: DateTime.tryParse(json['date'] ?? '') ?? DateTime.now(),
       speakers: speakers,

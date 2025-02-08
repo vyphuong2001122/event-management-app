@@ -8,6 +8,7 @@ import 'package:event_management_app/controllers/register_controller.dart';
 import 'package:event_management_app/controllers/speaker_controller.dart';
 import 'package:event_management_app/controllers/theme_controller.dart';
 import 'package:event_management_app/controllers/user_controller.dart';
+import 'package:event_management_app/models/speaker.dart';
 import 'package:event_management_app/view/event/add_new_event_screen.dart';
 import 'package:event_management_app/view/event/event_detail_screen.dart';
 import 'package:event_management_app/view/event/event_list_screen.dart';
@@ -19,6 +20,7 @@ import 'package:event_management_app/view/profile/edit_profile_screen.dart';
 import 'package:event_management_app/view/profile/profile_screen.dart';
 import 'package:event_management_app/view/settings_screen.dart';
 import 'package:event_management_app/view/speaker/add_new_speaker_screen.dart';
+import 'package:event_management_app/view/speaker/edit_speaker_screen.dart';
 import 'package:event_management_app/view/speaker/speaker_list_screen.dart';
 import 'package:event_management_app/view/user/user_list_screen.dart';
 import 'package:flutter/material.dart';
@@ -111,11 +113,39 @@ class MyApp extends StatelessWidget {
             '/register': (context) => const RegisterScreen(),
             '/scan-qr': (context) => const ScanQrScreen(),
             '/event-list': (context) => const EventListScreen(),
-            '/event-detail': (context) => const EventDetailScreen(),
             '/settings': (context) => const SettingsScreen(),
             '/user-list': (context) => const UserListScreen(),
             '/speaker-list': (context) => const SpeakerListScreen(),
             '/add-new-speaker': (context) => const AddNewSpeakerScreen(),
+          },
+          onGenerateRoute: (settings) {
+            final uri = Uri.parse(settings.name!);
+
+            // Handle dynamic route: "/event-detail/:id"
+            if (uri.pathSegments.length == 2 &&
+                uri.pathSegments.first == 'event-detail') {
+              final eventId = uri.pathSegments[1]; // Extract event ID
+              final eventQr = settings.arguments as String?; // Extract event QR
+              return MaterialPageRoute(
+                builder: (context) =>
+                    EventDetailScreen(id: eventId, qr: eventQr),
+              );
+            }
+
+            // Handle dynamic route: "/speakers/:id/edit"
+            if (uri.pathSegments.length == 3 &&
+                uri.pathSegments.first == 'speakers' &&
+                uri.pathSegments.last == 'edit') {
+              final speaker =
+                  settings.arguments as Speaker; // Extract the object
+
+              return MaterialPageRoute(
+                builder: (context) => EditSpeakerScreen(speaker: speaker),
+              );
+            }
+
+            // Return null to indicate an unknown route
+            return null;
           },
         );
       },

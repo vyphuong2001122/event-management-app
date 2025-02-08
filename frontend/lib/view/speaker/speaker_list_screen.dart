@@ -33,9 +33,7 @@ class _SpeakerListScreenState extends State<SpeakerListScreen> {
           body: Padding(
             padding: const EdgeInsets.all(20),
             child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              child: Wrap(
                 children: <Widget>[
                   if (speakerController.loading)
                     const CircularProgressIndicator()
@@ -45,6 +43,9 @@ class _SpeakerListScreenState extends State<SpeakerListScreen> {
                         padding: const EdgeInsets.only(bottom: 10),
                         child: SpeakerItem(
                           speaker: speaker,
+                          canEdit: homeController.currentUser?.role ==
+                                  'admin' ||
+                              homeController.currentUser?.role == 'organizer',
                         ),
                       )
                   else

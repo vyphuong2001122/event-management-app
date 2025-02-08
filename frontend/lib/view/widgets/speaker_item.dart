@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 class SpeakerItem extends StatefulWidget {
   final Speaker speaker;
   final double width;
-  const SpeakerItem({super.key, required this.speaker, this.width = 200});
+  final bool canEdit;
+  const SpeakerItem({
+    super.key,
+    required this.speaker,
+    this.width = 200,
+    this.canEdit = false,
+  });
 
   @override
   State<SpeakerItem> createState() => _SpeakerItemState();
@@ -28,43 +34,62 @@ class _SpeakerItemState extends State<SpeakerItem> {
         ],
       ),
       margin: const EdgeInsets.only(right: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          SizedBox(
-            width: widget.width,
-            height: 200,
-            child: Image.asset(
-              'assets/images/avatar_illustration.jpg',
-              fit: BoxFit.cover,
-              alignment: Alignment.topCenter,
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: widget.width,
+                height: 200,
+                child: Image.asset(
+                  'assets/images/avatar_illustration.jpg',
+                  fit: BoxFit.cover,
+                  alignment: Alignment.topCenter,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  widget.speaker.name,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 8.0, left: 10, right: 10, bottom: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.speaker.bio,
+                      maxLines: 3,
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              widget.speaker.name,
-              maxLines: 1,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-                color: Theme.of(context).colorScheme.onBackground,
+          if (widget.canEdit)
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    "/speakers/${widget.speaker.id}/edit",
+                    arguments: widget.speaker, // Passing the entire object
+                  );
+                },
+                icon: Icon(Icons.edit),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-                top: 8.0, left: 10, right: 10, bottom: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.speaker.bio,
-                  style: const TextStyle(color: Colors.grey),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );

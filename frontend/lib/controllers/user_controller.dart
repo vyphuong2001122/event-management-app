@@ -21,11 +21,10 @@ class UserController with ChangeNotifier {
     }
   }
 
-  void updateUserRole(int userId, String role) {
-    User? findUser = users.where((e) => e.id == userId).firstOrNull;
-    if (findUser != null) {
-      findUser.role = role;
+  void updateUserRole(int userId, String role) async {
+    bool success = await API().updateUserRole(userId, role);
+    if (success) {
+      await getUserList();
     }
-    notifyListeners();
   }
 }
