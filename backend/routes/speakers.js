@@ -9,8 +9,6 @@ const {
   getSpeakerById,
   getAllGuests,
   getGuestById,
-  getSpeakersByEventId,
-  getGuestsByEventId,
 } = require('../controllers/speakerController');
 const { authenticateJWT } = require('../middlewares/authMiddleware');
 const express = require('express');
@@ -29,9 +27,5 @@ router.get('/guests', authenticateJWT, getAllGuests);
 router.get('/guests/:id', authenticateJWT, getGuestById);
 router.put('/guests/:id', authenticateJWT, updateGuest);
 router.delete('/guests/:id', authenticateJWT, deleteGuest);
-
-// Fetch by eventId
-router.get('/events/:eventId/speakers', authenticateJWT, getSpeakersByEventId);
-router.get('/events/:eventId/guests', authenticateJWT, getGuestsByEventId);
 
 module.exports = router;

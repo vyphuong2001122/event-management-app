@@ -1,7 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
 const router = express.Router();
-const { registerUser, getAllUsers, loginUser, getCurrentUserProfile, updateUserProfile } = require('../controllers/userController');
+const { registerUser, getAllUsers, loginUser, getCurrentUserProfile, updateUserProfile, updateUserRole } = require('../controllers/userController');
 const { authenticateJWT, requireAdmin } = require('../middlewares/authMiddleware');
 // Import Models
 const User = require('../models/User');
@@ -47,5 +47,8 @@ router.get('/profile', authenticateJWT, getCurrentUserProfile);
 
 // Update user profile
 router.put('/profile', authenticateJWT, updateUserProfile);
+
+// Update user role
+router.put('/:userId/role', authenticateJWT, requireAdmin, updateUserRole);
 
 module.exports = router;

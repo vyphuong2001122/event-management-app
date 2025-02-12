@@ -2,19 +2,19 @@ const { Event, EventRegistration } = require('../models/index');
 
 exports.getUserTickets = async(req, res) => {
     try {
-        const userId = req.user.id; // Lấy ID người dùng từ middleware
+        const userId = req.user.id; // Get user ID from middleware
 
-        // Lấy danh sách vé của user, bao gồm thông tin sự kiện
+        // Get a list of user tickets, including event information
         const tickets = await EventRegistration.findAll({
             where: { userId },
             attributes: ['id', 'eventId', 'qrKey', 'attended', 'createdAt'],
             include: [{
                 model: Event,
-                attributes: ['name', 'description', 'location', 'date'], // Chọn các trường từ Event
+                attributes: ['name', 'description', 'location', 'date'], // Select fields from Event
             }, ],
         });
 
-        // Trả về danh sách vé
+        // Returns a list of tickets
         res.status(200).json({
             success: true,
             tickets,

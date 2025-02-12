@@ -161,3 +161,35 @@ exports.updateUserProfile = async(req, res) => {
         });
     }
 };
+
+exports.updateUserRole = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const { role } = req.body;
+    
+        // Validate role
+        const validRoles = ['admin', 'organizer', 'attendee'];
+        if (!validRoles.includes(role)) {
+            return res.status(400).json({ success: false, message: 'Invalid role specified.' });
+        }
+    
+        // Find user
+        const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found.' });
+        }
+    
+        // Update role
+        user.role = role;
+        await user.save();
+    
+        res.status(200).json({
+            success: true,
+            message: 'User role updated successfully.',
+            data: { id: user.id, name: user.name, email: user.email, role: user.role },
+        });
+    } catch (err) {
+        console.error('Error updating user role:', err);
+        res.status(500).json({ success: false, message: 'Failed to update user role.' });
+    }
+};

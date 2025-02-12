@@ -24,8 +24,10 @@ const userRoutes = require('./routes/users');
 const eventRoutes = require('./routes/events');
 const ticketRoutes = require('./routes/tickets');
 const speakerRoutes = require('./routes/speakers');
+const reviewRoutes = require('./routes/reviews');
 
 app.use('/users', userRoutes);
 app.use('/events', eventRoutes);
 app.use('/tickets', ticketRoutes);
 app.use('/speakers', speakerRoutes);
+app.use('/reviews', reviewRoutes);
