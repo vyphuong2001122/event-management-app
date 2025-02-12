@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         SectionWidget(
                           title: 'home_screen.your_events'.tr(),
                           content: SizedBox(
-                            height: 240,
+                            height: 260,
                             width: double.infinity,
                             child: ListView(
                               scrollDirection: Axis.horizontal,
