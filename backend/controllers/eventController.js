@@ -1,4 +1,4 @@
-const {Event, User, EventRegistration, Guest, Speaker} = require('../models/index')
+const {Event, User, EventRegistration, Guest, Speaker, Review} = require('../models/index')
 
 const { v4: uuidv4 } = require('uuid');
 const { v4 } = require('bcrypt');
@@ -13,20 +13,30 @@ exports.createEvent = async (req, res) => {
       return res.status(400).json({ success: false, message: 'All required fields must be provided.' });
     }
 
-    if (speakers && speakers.length > 0) {
+    // Create the event
+    const event = await Event.create({ name, description, date, location, category });
+
+    // Associate speakers with the event
+    if (Array.isArray(speakers) && speakers.length > 0) {
       const speakerInstances = await Speaker.findAll({ where: { id: speakers } });
       await event.addSpeakers(speakerInstances);
     }
 
-    if (guests && guests.length > 0) {
+    // Associate guests with the event
+    if (Array.isArray(guests) && guests.length > 0) {
       const guestInstances = await Guest.findAll({ where: { id: guests } });
       await event.addGuests(guestInstances);
     }
 
-    // Create the event
-    const event = await Event.create({ name, description, date, location, category });
+    // Fetch the event with its related speakers and guests
+    const createdEvent = await Event.findByPk(event.id, {
+      include: [
+        { model: Speaker, through: { attributes: [] } },
+        { model: Guest, through: { attributes: [] } },
+      ],
+    });
 
-    res.status(201).json({ success: true, message: 'Event created successfully.', data: event });
+    res.status(201).json({ success: true, message: 'Event created successfully.', data: createdEvent });
   } catch (err) {
     console.error('Error creating event:', err);
     res.status(500).json({ success: false, message: 'Failed to create event.' });
@@ -39,9 +49,26 @@ exports.getAllEvents = async (req, res) => {
     const { category } = req.query;
     const filter = category ? { category } : {};
 
-    const events = await Event.findAll({ where: filter });
+    const events = await Event.findAll({ where: filter, include: [
+      {
+        model: Review,
+        attributes: ['rating'],
+      },
+    ] });
 
-    res.status(200).json({ success: true, data: events });
+    // Compute average rating for each event
+    const eventData = events.map(event => {
+      const reviews = event.Reviews || [];
+      const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+      const averageRating = reviews.length > 0 ? (totalRating / reviews.length) : 0;
+
+      return {
+        ...event.toJSON(),
+        average_rating: averageRating,
+      };
+    });
+
+    res.status(200).json({ success: true, data: eventData });
   } catch (err) {
     console.error('Error fetching events:', err);
     res.status(500).json({ success: false, message: 'Failed to fetch events.' });
@@ -53,13 +80,45 @@ exports.getEventById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const event = await Event.findByPk(id);
+    const event = await Event.findByPk(id, {
+      include: [
+        {
+          model: Speaker,
+          through: { attributes: [] }, // Hide the join table attributes
+        },
+        {
+          model: Guest,
+          through: { attributes: [] },
+        },
+        {
+          model: Review,
+          attributes: ['id', 'rating', 'comment', 'userId', 'createdAt'],
+          include: [
+            {
+              model: User,
+              attributes: ['id', 'name'], // Include user details for the review
+            },
+          ],
+        },
+      ],
+    });
 
     if (!event) {
       return res.status(404).json({ success: false, message: 'Event not found.' });
     }
 
-    res.status(200).json({ success: true, data: event });
+    // Calculate average rating
+    const reviews = event.Reviews || [];
+    const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+    const averageRating = reviews.length > 0 ? (totalRating / reviews.length) : null;
+
+    res.status(200).json({
+      success: true,
+      data: {
+        ...event.toJSON(),
+        average_rating: averageRating,
+      },
+    });
   } catch (err) {
     console.error('Error fetching event:', err);
     res.status(500).json({ success: false, message: 'Failed to fetch event.' });
