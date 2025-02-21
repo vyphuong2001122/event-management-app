@@ -41,7 +41,7 @@ This project leverages **Flutter** and **Firebase** to develop a cross-platform 
 5. Login with accounts
    - Admin role: admin@gmail.com / 123456
    - Organizer role: organizer@gmail.com / 123456
-   - User role: test@gmail.com
+   - User role: test@gmail.com / 123456
 
 ## Directory Structure
     lib/
