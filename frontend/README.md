@@ -38,6 +38,10 @@ This project leverages **Flutter** and **Firebase** to develop a cross-platform 
 2. cd event-management-app/frontend/
 3. flutter pub get
 4. flutter run
+5. Login with accounts
+   - Admin role: admin@gmail.com / 123456
+   - Organizer role: organizer@gmail.com / 123456
+   - User role: test@gmail.com
 
 ## Directory Structure
     lib/
